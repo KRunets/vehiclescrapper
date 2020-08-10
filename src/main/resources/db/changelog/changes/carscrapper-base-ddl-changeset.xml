@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="0" author="k.runets">
+        <sql>
+            CREATE TABLE vehicle (
+            id uuid primary key,
+            model uuid,
+            odometer text,
+            sale_date date,
+            seller_id UUID,
+            vin text,
+            lot_number text,
+            other_info_id,
+            key_amount integer,
+            series text,
+            start_date
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="1" author="k.runets">
+        <sql>
+            CREATE TABLE vehicle_type (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="k.runets">
+        <sql>
+            CREATE TABLE fuel_type (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="k.runets">
+        <sql>
+            CREATE TABLE seller (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="k.runets">
+        <sql>
+            CREATE TABLE transmission_type (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="k.runets">
+        <sql>
+            CREATE TABLE damage_type (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="k.runets">
+        <sql>
+            CREATE TABLE make_lookup (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="7" author="k.runets">
+        <sql>
+            CREATE TABLE model_lookup (
+            id uuid primary key,
+            make uuid,
+            model text,
+            vehicle_type_id UUID,
+            body_style_type_id UUID,
+            fuel_type_id UUID,
+            transmission_type_id UUID,
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="8" author="k.runets">
+        <sql>
+            CREATE TABLE other_info (
+            id uuid primary key,
+            info jsonb
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="k.runets">
+        <sql>
+            CREATE TABLE damage_type_m2m_vehicle (
+            v_id uuid primary key,
+            dt_id uuid primary key
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+
