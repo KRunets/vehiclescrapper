@@ -1,4 +1,4 @@
-package by.runets.carscrapper.domain.lookup
+package by.runets.carscrapper.db.domain.lookup
 
 import org.springframework.data.relational.core.mapping.Table
 
