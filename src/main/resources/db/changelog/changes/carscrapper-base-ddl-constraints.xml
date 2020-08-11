@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="contraint-1" author="k.runets">
+
+
+        <addForeignKeyConstraint constraintName="fk_model_vehicle_type"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="vehicle_type_id"
+                                 referencedTableName="vehicle_type"
+                                 referencedColumnNames="id"/>
+
+
+        <addForeignKeyConstraint constraintName="fk_model_body_style_type"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="body_style_type_id"
+                                 referencedTableName="body_style_type"
+                                 referencedColumnNames="id"/>
+
+
+        <addForeignKeyConstraint constraintName="fk_model_fuel_type"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="fuel_type_id"
+                                 referencedTableName="fuel_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_model_drive_train_type"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="fuel_type_id"
+                                 referencedTableName="fuel_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_model_transmission_type"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="transmission_type_id"
+                                 referencedTableName="transmission_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_vehicle_model"
+                                 baseTableName="vehicle"
+                                 baseColumnNames="model"
+                                 referencedTableName="model_lookup"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_vehicle_other_info"
+                                 baseTableName="vehicle"
+                                 baseColumnNames="other_info_id"
+                                 referencedTableName="other_info"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_vehicle_seller"
+                                 baseTableName="vehicle"
+                                 baseColumnNames="seller_id"
+                                 referencedTableName="seller"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_damage_vehicle_m2m_damage"
+                                 baseTableName="damage_type_m2m_vehicle"
+                                 baseColumnNames="dt_id"
+                                 referencedTableName="damage_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint constraintName="fk_vehicle_vehicle_m2m_damage"
+                                 baseTableName="damage_type_m2m_vehicle"
+                                 baseColumnNames="v_id"
+                                 referencedTableName="vehicle"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+    <changeSet id="constraint-2" author="k.runets">
+
+        <addForeignKeyConstraint constraintName="fk_make_model"
+                                 baseTableName="model_lookup"
+                                 baseColumnNames="make"
+                                 referencedTableName="make_lookup"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>
+

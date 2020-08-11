@@ -11,5 +11,6 @@ data class ModelLookup(
         val vehicleType: UUID,
         val bodyStyle: UUID,
         val fuelType: UUID,
-        val transmissionType: UUID
+        val transmissionType: UUID,
+        val driveTrain: UUID
 )

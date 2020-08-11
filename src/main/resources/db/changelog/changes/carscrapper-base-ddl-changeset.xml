@@ -3,7 +3,6 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
-
     <changeSet id="0" author="k.runets">
         <sql>
             CREATE TABLE vehicle (
@@ -14,10 +13,10 @@
             seller_id UUID,
             vin text,
             lot_number text,
-            other_info_id,
+            other_info_id UUID,
             key_amount integer,
             series text,
-            start_date
+            start_date date
             );
         </sql>
     </changeSet>
@@ -85,7 +84,7 @@
             vehicle_type_id UUID,
             body_style_type_id UUID,
             fuel_type_id UUID,
-            transmission_type_id UUID,
+            transmission_type_id UUID
             );
         </sql>
     </changeSet>
@@ -99,11 +98,30 @@
         </sql>
     </changeSet>
 
-    <changeSet id="5" author="k.runets">
+    <changeSet id="9" author="k.runets">
         <sql>
             CREATE TABLE damage_type_m2m_vehicle (
-            v_id uuid primary key,
-            dt_id uuid primary key
+            v_id uuid,
+            dt_id uuid
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="10" author="k.runets">
+        <sql>
+            CREATE TABLE body_style_type (
+            id uuid primary key,
+            type text
+            );
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="11" author="k.runets">
+        <sql>
+            CREATE TABLE drive_train_type (
+            id uuid primary key,
+            type text
             );
         </sql>
     </changeSet>
