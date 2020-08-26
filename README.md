@@ -8,4 +8,4 @@ Stack:
 - Liquibase;
 - Postgres;
 - Telegram Api;
-- Jsoup/HTML Unit;
+- HTML Unit;
