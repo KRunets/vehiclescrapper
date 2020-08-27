@@ -7,5 +7,8 @@ import org.springframework.boot.runApplication
 class CarscrapperApplication
 
 fun main(args: Array<String>) {
-    runApplication<CarscrapperApplication>(*args)
+    runApplication<CarscrapperApplication>(*args) {
+        val path = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", "$path/src/main/resources/chromedriver.exe")
+    }
 }
