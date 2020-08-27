@@ -1,6 +1,7 @@
 #Carscrapper
 This project is intended for scrapping data by specific criteria from Copart/IAAI/other vendors as telegram bot 
 Stack:
+- Netty;
 - Kotlin;
 - Spring boot;
 - R2dbc;
@@ -8,4 +9,7 @@ Stack:
 - Liquibase;
 - Postgres;
 - Telegram Api;
-- HTML Unit;
+- Selenium;
+
+Data providers:
+- Copart;
