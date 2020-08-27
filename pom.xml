@@ -22,6 +22,7 @@
 		<jaxb.api.version>2.4.0-b180830.0359</jaxb.api.version>
 		<liquibase.maven.plugin.version>3.9.0</liquibase.maven.plugin.version>
 		<liquibase.propertyFile>${project.basedir}\src\main\resources\db\liquibase.properties</liquibase.propertyFile>
+		<docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -163,6 +164,22 @@
 						<version>${jaxb.api.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.maven.plugin.version}</version>
+				<configuration>
+					<imageName>example</imageName>
+					<dockerDirectory>docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
