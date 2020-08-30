@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 @ConfigurationProperties(prefix = "sql")
 data class DatabaseProperties(
         var host: String = "localhost",
+        var databaseName: String = "carscrapper",
         var username: String = "postgres",
         var pass: String = "root",
         var port: Int = 5432,

@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class FuelTypeScrapService(@Autowired private var fuelTypeService: FuelTypeService) : IScrapService<FuelType> {
-
-    override suspend fun scrapAndSave() {
+    override suspend fun scrapAndSave(): FuelType {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }

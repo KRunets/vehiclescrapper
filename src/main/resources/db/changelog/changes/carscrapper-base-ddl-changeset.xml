@@ -69,7 +69,7 @@
     <changeSet id="6" author="k.runets">
         <sql>
             CREATE TABLE make_lookup (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>

@@ -8,5 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
 
 @Service
-class BodyStyleTypeService(@Autowired private var bodyStyleTypeRepository: BodyStyleTypeRepository, @Autowired private var transactionalOperator: TransactionalOperator
-) : AbstractService<BodyStyleType>(repository = bodyStyleTypeRepository, transactionalOperator = transactionalOperator)
+class BodyStyleTypeService(@Autowired private var bodyStyleTypeRepository: BodyStyleTypeRepository,
+                           @Autowired private var transactionalOperator: TransactionalOperator
+) : AbstractService<BodyStyleType>(
+        repository = bodyStyleTypeRepository,
+        transactionalOperator = transactionalOperator)

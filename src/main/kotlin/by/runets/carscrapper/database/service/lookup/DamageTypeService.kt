@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
 
 @Service
-class DamageTypeService(@Autowired private var damageTypeRepository: DamageTypeRepository, @Autowired private var transactionalOperator: TransactionalOperator
-) : AbstractService<DamageType>(repository = damageTypeRepository, transactionalOperator = transactionalOperator)
+class DamageTypeService(@Autowired private var damageTypeRepository: DamageTypeRepository,
+                        @Autowired private var transactionalOperator: TransactionalOperator
+) : AbstractService<DamageType>(repository = damageTypeRepository,
+        transactionalOperator = transactionalOperator)

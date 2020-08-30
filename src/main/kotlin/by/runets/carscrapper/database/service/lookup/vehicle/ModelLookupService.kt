@@ -8,5 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
 
 @Service
-class ModelLookupService(@Autowired private var modelLookupRepository: ModelLookupRepository, @Autowired private var transactionalOperator: TransactionalOperator
-) : AbstractService<ModelLookup>(repository = modelLookupRepository, transactionalOperator = transactionalOperator)
+class ModelLookupService(@Autowired private var modelLookupRepository: ModelLookupRepository,
+                         @Autowired private var transactionalOperator: TransactionalOperator
+) : AbstractService<ModelLookup>(
+        repository = modelLookupRepository,
+        transactionalOperator = transactionalOperator)

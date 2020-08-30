@@ -10,4 +10,5 @@ import org.springframework.transaction.reactive.TransactionalOperator
 @Service
 class VehicleTypeTypeService(@Autowired private var vehicleTypeRepository: VehicleTypeRepository,
                              @Autowired private var transactionalOperator: TransactionalOperator)
-    : AbstractService<VehicleType>(repository = vehicleTypeRepository, transactionalOperator = transactionalOperator)
+    : AbstractService<VehicleType>(repository = vehicleTypeRepository,
+        transactionalOperator = transactionalOperator)

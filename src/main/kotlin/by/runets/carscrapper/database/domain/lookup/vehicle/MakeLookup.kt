@@ -1,10 +1,16 @@
 package by.runets.carscrapper.database.domain.lookup.vehicle
 
-import by.runets.carscrapper.database.domain.lookup.Lookup
+import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
+import java.util.*
 
 @Table("make_lookup")
-data class MakeLookup(
-        val lookup: Lookup,
-        val models: Set<ModelLookup>
-)
+class MakeLookup {
+    @Id
+    var id: UUID? = null
+    var type: String? = ""
+
+    constructor(type: String?) {
+        this.type = type
+    }
+}

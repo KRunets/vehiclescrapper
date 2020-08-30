@@ -8,5 +8,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
 
 @Service
-class FuelTypeService(@Autowired private var fuelTypeRepository: FuelTypeRepository, @Autowired private var transactionalOperator: TransactionalOperator
-) : AbstractService<FuelType>(repository = fuelTypeRepository, transactionalOperator = transactionalOperator)
+class FuelTypeService(@Autowired private var fuelTypeRepository: FuelTypeRepository,
+                      @Autowired private var transactionalOperator: TransactionalOperator
+) : AbstractService<FuelType>(
+        repository = fuelTypeRepository,
+        transactionalOperator = transactionalOperator)
