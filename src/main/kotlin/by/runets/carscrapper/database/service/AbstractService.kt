@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.transaction.reactive.TransactionalOperator
+import reactor.core.publisher.Flux
 import java.util.*
 
 abstract class AbstractService<T>(
@@ -29,8 +30,8 @@ abstract class AbstractService<T>(
         return transactionalOperator.transactional(repository.findById(id)).awaitFirstOrNull()
     }
 
-    override suspend fun findAll(): T? {
-        return transactionalOperator.transactional(repository.findAll()).awaitFirstOrNull()
+    override suspend fun findAll(): Flux<T> {
+        return transactionalOperator.transactional(repository.findAll())
     }
 
     override suspend fun deleteById(id: UUID): Void? {

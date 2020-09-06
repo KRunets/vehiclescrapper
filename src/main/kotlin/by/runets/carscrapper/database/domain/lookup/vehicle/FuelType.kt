@@ -1,7 +1,12 @@
 package by.runets.carscrapper.database.domain.lookup.vehicle
 
-import by.runets.carscrapper.database.domain.lookup.Lookup
+import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
+import java.util.*
 
 @Table("fuel_type")
-data class FuelType(val lookup: Lookup)
+class FuelType(type: String) {
+    @Id
+    var id: UUID? = null
+    var type: String? = type
+}
