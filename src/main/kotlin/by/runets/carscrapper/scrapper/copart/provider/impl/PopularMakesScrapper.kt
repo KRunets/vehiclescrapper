@@ -27,7 +27,7 @@ class PopularMakesScrapper(@Autowired private val chromeDriver: ChromeDriver) : 
                 .filter { p -> p.findElement(By.className("panel-heading")).text == "Popular Makes" }
                 .map {
                     it.findElements(By.className("list-group-item"))
-                            .forEach { p -> set.add(MakeLookup(p.findElement(By.tagName("span")).text)) }
+                            .forEach { p -> set.add(MakeLookup(p.findElement(By.tagName("span")).text.toLowerCase())) }
                 }
         return set
     }

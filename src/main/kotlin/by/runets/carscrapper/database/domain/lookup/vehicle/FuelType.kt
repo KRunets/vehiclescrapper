@@ -9,4 +9,7 @@ class FuelType(type: String) {
     @Id
     var id: UUID? = null
     var type: String? = type
+
+
+
 }

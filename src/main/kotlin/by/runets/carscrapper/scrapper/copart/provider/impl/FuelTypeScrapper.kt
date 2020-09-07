@@ -22,13 +22,7 @@ class FuelTypeScrapper(@Autowired private val makeLookupService: MakeLookupServi
         makeLookupDataSet.map { i: MakeLookup ->
             {
                 chromeDriver.get(page + i.type!!.toLowerCase())
-                chromeDriver.findElementsByClassName("list-group-item")
-                        .filter { p -> p.findElement(By.xpath("//*[@data-id='Fuel Type']")).text == "Fuel Type" }
-                        .map { it.findElement(By.className("list-unstyled")) }
-                        .map {
-                            it.findElements(By.className("checkbox"))
-                                    .forEach { i -> println(i.findElement(By.tagName("abbr")).text) }
-                        }
+                chromeDriver.findElements(By.name("FUEL")).forEach { i -> println(i.getAttribute("value")) }
             }
         }
 
