@@ -8,6 +8,8 @@ interface IService<T, ID> {
 
     suspend fun saveAll(data: Iterable<T>)
 
+    fun saveAllBlocking(data: Iterable<T>)
+
     suspend fun findById(id: ID): T?
 
     suspend fun findAll(): Flux<T>

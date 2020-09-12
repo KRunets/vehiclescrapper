@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class PopularMakesScrapService(
         @Autowired private val makesScrapper: PopularMakesScrapper,
-        @Autowired private val makeLookupService: MakeLookupService) : IScrapService<Set<MakeLookup>> {
+        @Autowired private val makeLookupService: MakeLookupService) : AbstractScrapService<Set<MakeLookup>>(), IScrapService<Set<MakeLookup>> {
 
     override suspend fun scrapAndSave(): Set<MakeLookup> {
         val dataSet = makesScrapper.scrap()

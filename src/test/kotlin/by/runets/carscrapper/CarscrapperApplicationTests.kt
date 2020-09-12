@@ -1,28 +1,22 @@
 package by.runets.carscrapper
 
+import by.runets.carscrapper.initializer.ContextInitializer
 import org.junit.jupiter.api.Test
-import org.openqa.selenium.By
-import org.openqa.selenium.chrome.ChromeDriver
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import java.io.File
-import java.lang.Thread.sleep
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.junit.jupiter.SpringExtension
+
 
 @SpringBootTest
+@ExtendWith(SpringExtension::class)
+@ContextConfiguration(initializers = [ContextInitializer::class])
 class CarscrapperApplicationTests {
 
-	@Test
-	fun contextLoads() {
-		val path = System.getProperty("user.dir");
-		System.setProperty("webdriver.chrome.driver", "$path/src/main/resources/chromedriver.exe")
+    @Test
+    fun `findAll`() {
+        var testVar: Boolean = true;
+        assert(testVar)
+    }
 
-		val driver = ChromeDriver()
-
-		driver.get("https://www.copart.com/vehicleFinder/")
-
-		driver.findElementsByClassName("panel-default")
-				.filter { p -> p.findElement(By.className("panel-heading")).text == "Popular Makes" }
-				.map { it.findElements(By.className("list-group-item")).forEach { p -> println(p.findElement(By.tagName("span")).text) } }
-
-		driver.close()
-	}
 }

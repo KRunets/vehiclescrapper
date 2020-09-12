@@ -1,6 +1,5 @@
-package by.runets.carscrapper.controller.copart
+package by.runets.carscrapper.web.copart
 
-import by.runets.carscrapper.database.domain.lookup.vehicle.FuelType
 import by.runets.carscrapper.database.domain.lookup.vehicle.MakeLookup
 import by.runets.carscrapper.scrapper.copart.service.impl.FuelTypeScrapService
 import by.runets.carscrapper.scrapper.copart.service.impl.PopularMakesScrapService
@@ -17,10 +16,9 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
         return popularMakesScrapService.scrapAndSave()
     }
 
-
     @GetMapping("/scrap/type/fuel")
-    suspend fun scrapFuelType(): Set<FuelType> {
-        return fuelTypeScrapService.scrapAndSave()
+    suspend fun scrapFuelType() {
+        fuelTypeScrapService.scrapAndSave()
     }
 
 

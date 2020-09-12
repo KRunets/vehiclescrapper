@@ -8,15 +8,14 @@ import java.util.*
 @Table("vehicle")
 data class Vehicle(
         @Id
-        val id: UUID,
-        val model: UUID,
-        val seller: UUID,
-        val otherInfo: UUID,
-        val odometer: Int,
-        val saleDate: LocalDateTime,
-        val vin: String,
-        val lotNumber: String,
-        var keyAmount: Int = 0,
-        val series: String?,
-        val startCode: String?
+        private val id: UUID,
+        private val model: UUID,
+        private val seller: UUID,
+        private val odometer: Int,
+        private val saleDate: LocalDateTime,
+        private val vin: String,
+        private val lotNumber: String,
+        private var keyAmount: Int = 0,
+        private val series: String?,
+        private val startCode: String?
 )

@@ -26,6 +26,10 @@ abstract class AbstractService<T>(
         transactionalOperator.transactional(repository.saveAll(data)).awaitLast()
     }
 
+    override fun saveAllBlocking(data: Iterable<T>) {
+        transactionalOperator.transactional(repository.saveAll(data))
+    }
+
     override suspend fun findById(id: UUID): T? {
         return transactionalOperator.transactional(repository.findById(id)).awaitFirstOrNull()
     }

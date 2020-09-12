@@ -5,12 +5,12 @@ import java.util.*
 
 @Table("model_lookup")
 data class ModelLookup(
-        val id: UUID,
-        val make: UUID,
-        val model: String,
-        val vehicleType: UUID,
-        val bodyStyle: UUID,
-        val fuelType: UUID,
-        val transmissionType: UUID,
-        val driveTrain: UUID
+        private val id: UUID,
+        private val make: UUID,
+        private val model: String,
+        private val vehicleType: UUID,
+        private val bodyStyle: UUID,
+        private val fuelType: UUID,
+        private val transmissionType: UUID,
+        private val driveTrain: UUID
 )
