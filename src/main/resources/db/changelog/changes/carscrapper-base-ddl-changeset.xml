@@ -6,7 +6,7 @@
     <changeSet id="0" author="k.runets">
         <sql>
             CREATE TABLE vehicle (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             model uuid,
             odometer text,
             sale_date date,
@@ -24,7 +24,7 @@
     <changeSet id="1" author="k.runets">
         <sql>
             CREATE TABLE vehicle_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -33,7 +33,7 @@
     <changeSet id="2" author="k.runets">
         <sql>
             CREATE TABLE fuel_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -42,7 +42,7 @@
     <changeSet id="3" author="k.runets">
         <sql>
             CREATE TABLE seller (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -51,7 +51,7 @@
     <changeSet id="4" author="k.runets">
         <sql>
             CREATE TABLE transmission_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -60,7 +60,7 @@
     <changeSet id="5" author="k.runets">
         <sql>
             CREATE TABLE damage_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -77,8 +77,8 @@
 
     <changeSet id="7" author="k.runets">
         <sql>
-            CREATE TABLE model_lookup (
-            id uuid primary key,
+            CREATE TABLE model_lookup  (
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             make uuid,
             model text,
             vehicle_type_id UUID,
@@ -92,7 +92,7 @@
     <changeSet id="8" author="k.runets">
         <sql>
             CREATE TABLE other_info (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             info jsonb
             );
         </sql>
@@ -110,7 +110,7 @@
     <changeSet id="10" author="k.runets">
         <sql>
             CREATE TABLE body_style_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>
@@ -120,7 +120,7 @@
     <changeSet id="11" author="k.runets">
         <sql>
             CREATE TABLE drive_train_type (
-            id uuid primary key,
+            id uuid primary key DEFAULT uuid_generate_v4 (),
             type text
             );
         </sql>

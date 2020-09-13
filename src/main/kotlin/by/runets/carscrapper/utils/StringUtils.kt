@@ -3,9 +3,11 @@ package by.runets.carscrapper.utils
 class StringUtils {
     companion object {
         fun replaceDash(string: String): String {
-            if (string.contains("-")) {
+            val isContainsDash = string.contains("-")
+            val isContainsPercentage = string.contains("%20")
+            if (isContainsDash || isContainsPercentage) {
                 var result = ""
-                val arr = string.split("-")
+                val arr = splitBy(isContainsDash, string)
                 for (i in arr) {
                     result += i
                 }
@@ -13,5 +15,10 @@ class StringUtils {
             }
             return string
         }
+
+        private fun splitBy(isContainsDash: Boolean, string: String) : List<String> {
+            return if (isContainsDash) string.split("-") else string.split("%20")
+        }
+
     }
 }

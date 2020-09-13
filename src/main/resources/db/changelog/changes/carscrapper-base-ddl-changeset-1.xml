@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="11" author="k.runets">
+        <sql>
+            ALTER TABLE fuel_type ADD COLUMN make_lookup_id UUID;
+        </sql>
+    </changeSet>
+
+    <changeSet id="ml_ft_constraint" author="k.runets">
+        <addForeignKeyConstraint constraintName="fk_fuel_type_make_lookup"
+                                 baseTableName="fuel_type"
+                                 baseColumnNames="make_lookup_id"
+                                 referencedTableName="make_lookup"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
+

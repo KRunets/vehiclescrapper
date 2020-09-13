@@ -26,16 +26,19 @@ abstract class AbstractService<T>(
         transactionalOperator.transactional(repository.saveAll(data)).awaitLast()
     }
 
-    override fun saveAllBlocking(data: Iterable<T>) {
-        transactionalOperator.transactional(repository.saveAll(data))
-    }
-
     override suspend fun findById(id: UUID): T? {
         return transactionalOperator.transactional(repository.findById(id)).awaitFirstOrNull()
     }
 
-    override suspend fun findAll(): Flux<T> {
+    override suspend fun findAllFlux(): Flux<T> {
         return transactionalOperator.transactional(repository.findAll())
+    }
+
+    //ToDo
+    override suspend fun findAll(): Set<T> {
+        val set = mutableSetOf<T>()
+        transactionalOperator.transactional(repository.findAll()).subscribe { item -> set.add(item) }
+        return set
     }
 
     override suspend fun deleteById(id: UUID): Void? {

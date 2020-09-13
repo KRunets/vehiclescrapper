@@ -24,7 +24,7 @@ class FuelTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : Abst
         val wait = WebDriverWait(chromeDriver, 5)
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className(HtmlTagUtils.LIST_GROUP_ITEM)))
 
-        chromeDriver.findElements(By.name(HtmlTagUtils.FUEL)).forEach { pageData -> fuelTypeSet.add(FuelType(pageData.getAttribute(HtmlTagUtils.VALUE_ATTRIBUTE), makeLookup)) }
+        chromeDriver.findElements(By.name(HtmlTagUtils.FUEL)).forEach { pageData -> fuelTypeSet.add(FuelType(pageData.getAttribute(HtmlTagUtils.VALUE_ATTRIBUTE), makeLookup.id!!)) }
 
         return fuelTypeSet
     }
