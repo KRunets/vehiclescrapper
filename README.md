@@ -1,4 +1,4 @@
-#Carscrapper
+#vehiclescrapper
 This project is intended for scrapping data by specific criteria from Copart/IAAI/other vendors as telegram bot 
 
 #Stack:

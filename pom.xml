@@ -8,11 +8,11 @@
 		<version>2.3.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>by.runets.carscrapper</groupId>
-	<artifactId>carscrapper</artifactId>
+	<groupId>by.runets.vehiclescrapper</groupId>
+	<artifactId>vehiclescrapper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>carscrapper</name>
+	<name>vehiclescrapper</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
