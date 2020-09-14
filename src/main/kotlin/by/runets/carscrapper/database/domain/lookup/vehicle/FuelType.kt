@@ -35,5 +35,4 @@ class FuelType(type: String, makeLookupUUID: UUID) {
     override fun toString(): String {
         return "FuelType(id=$id, makeLookup=${makeLookupId}, type=$type)"
     }
-
 }

@@ -1,7 +1,25 @@
 package by.runets.carscrapper.database.domain.lookup.vehicle
 
-import by.runets.carscrapper.database.domain.lookup.Lookup
+import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
+import java.util.*
 
 @Table("body_style_type")
-data class BodyStyleType(val lookup: Lookup)
+class BodyStyleType {
+    @Id
+    var id: UUID? = null
+    var type: String? = ""
+
+    constructor()
+    constructor(type: String?) {
+        this.type = type
+    }
+    constructor(id: UUID?, type: String?) {
+        this.id = id
+        this.type = type
+    }
+
+    override fun toString(): String {
+        return "BodyStyleType(id=$id, type=$type)"
+    }
+}

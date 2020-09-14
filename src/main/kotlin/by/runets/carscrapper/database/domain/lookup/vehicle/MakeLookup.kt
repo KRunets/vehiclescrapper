@@ -11,16 +11,13 @@ class MakeLookup {
     var type: String? = ""
 
     constructor()
-
     constructor(type: String?) {
         this.type = type
     }
-
     constructor(id: UUID?, type: String?) {
         this.id = id
         this.type = type
     }
-
 
     override fun toString(): String {
         return "MakeLookup(type=$type, id=$id"

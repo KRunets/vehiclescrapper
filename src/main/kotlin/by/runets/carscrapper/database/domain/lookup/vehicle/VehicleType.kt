@@ -1,7 +1,27 @@
 package by.runets.carscrapper.database.domain.lookup.vehicle
 
-import by.runets.carscrapper.database.domain.lookup.Lookup
+import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
+import java.util.*
 
 @Table("vehicle_type")
-data class VehicleType(val lookup: Lookup)
+class VehicleType {
+
+    @Id
+    var id: UUID? = null
+    var type: String? = ""
+
+    constructor()
+    constructor(type: String?) {
+        this.type = type
+    }
+    constructor(id: UUID?, type: String?) {
+        this.id = id
+        this.type = type
+    }
+
+    override fun toString(): String {
+        return "VehicleType(id=$id, type=$type)"
+    }
+
+}
