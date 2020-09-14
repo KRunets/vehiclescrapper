@@ -8,7 +8,9 @@ import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import org.springframework.transaction.reactive.TransactionalOperator
 import reactor.core.publisher.Flux
+import reactor.kotlin.adapter.rxjava.toFlowable
 import java.util.*
+import java.util.stream.Collectors
 
 abstract class AbstractService<T>(
         private var repository: ReactiveCrudRepository<T, UUID>,
@@ -30,15 +32,8 @@ abstract class AbstractService<T>(
         return transactionalOperator.transactional(repository.findById(id)).awaitFirstOrNull()
     }
 
-    override suspend fun findAllFlux(): Flux<T> {
+    override suspend fun findAll(): Flux<T> {
         return transactionalOperator.transactional(repository.findAll())
-    }
-
-    //ToDo
-    override suspend fun findAll(): Set<T> {
-        val set = mutableSetOf<T>()
-        transactionalOperator.transactional(repository.findAll()).subscribe { item -> set.add(item) }
-        return set
     }
 
     override suspend fun deleteById(id: UUID): Void? {

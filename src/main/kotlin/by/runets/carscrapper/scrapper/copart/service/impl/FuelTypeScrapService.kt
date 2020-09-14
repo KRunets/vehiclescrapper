@@ -9,7 +9,6 @@ import by.runets.carscrapper.scrapper.copart.service.IFuelTypeScrapService
 import by.runets.carscrapper.utils.coroutines.onNext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupService,
@@ -19,7 +18,7 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
     override suspend fun scrapAndSave() {
         val fuelTypeDataSet = mutableSetOf<FuelType>()
 
-        val makeLookupDataSet = makeLookupService.findAllFlux()
+        val makeLookupDataSet = makeLookupService.findAll()
         makeLookupDataSet.map { makeLookup: MakeLookup ->
             run {
                 val data = fuelTypeScrapper.scrap(makeLookup)

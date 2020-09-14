@@ -2,6 +2,8 @@ package by.runets.carscrapper.web.copart
 
 import by.runets.carscrapper.database.domain.lookup.vehicle.MakeLookup
 import by.runets.carscrapper.database.service.lookup.vehicle.MakeLookupService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.reactive.asFlow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -15,7 +17,7 @@ class MakeLookupController(@Autowired private var makeLookupService: MakeLookupS
     }
 
     @GetMapping("/all")
-    suspend fun readAll(): Set<MakeLookup> {
-        return makeLookupService.findAll()
+    suspend fun readAll(): Flow<MakeLookup> {
+        return makeLookupService.findAll().asFlow()
     }
 }
