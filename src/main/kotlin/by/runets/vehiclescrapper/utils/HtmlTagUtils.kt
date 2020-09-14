@@ -9,6 +9,7 @@ class HtmlTagUtils {
 
         val FUEL = "FUEL"
         val DAMAGE = "PRID"
+        val TRANSMISSION_TYPE = "TMTP"
         val VALUE_ATTRIBUTE = "value"
     }
 }
