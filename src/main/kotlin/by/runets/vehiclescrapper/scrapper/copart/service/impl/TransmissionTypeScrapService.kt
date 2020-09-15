@@ -1,7 +1,7 @@
 package by.runets.vehiclescrapper.scrapper.copart.service.impl
 
-import by.runets.vehiclescrapper.database.domain.lookup.vehicle.TransmissionType
-import by.runets.vehiclescrapper.database.service.lookup.vehicle.TransmissionTypeService
+import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
+import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.TransmissionTypeService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.TransmissionTypeScrapper
 import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
 import org.springframework.beans.factory.annotation.Autowired

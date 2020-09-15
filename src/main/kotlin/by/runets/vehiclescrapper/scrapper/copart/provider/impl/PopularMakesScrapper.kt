@@ -1,8 +1,10 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider.impl
 
-import by.runets.vehiclescrapper.database.domain.lookup.vehicle.MakeLookup
+import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.scrapper.copart.provider.IScrapper
-import by.runets.vehiclescrapper.utils.HtmlTagUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.waitBy
 import by.runets.vehiclescrapper.utils.StringUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
@@ -19,10 +21,9 @@ class PopularMakesScrapper(@Autowired private val chromeDriver: ChromeDriver) : 
         val set = mutableSetOf<MakeLookup>()
 
         val page = "https://www.copart.com/vehicleFinder/"
-        chromeDriver.get(page)
 
-        val wait = WebDriverWait(chromeDriver, 1)
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className(HtmlTagUtils.LIST_GROUP_ITEM)))
+        chromeDriver.get(page)
+        waitBy(chromeDriver, By.className(HtmlTagUtils.LIST_GROUP_ITEM))
 
         chromeDriver.findElementsByClassName(HtmlTagUtils.PANEL_DEFAULT)
                 .filter { p -> p.findElement(By.className(HtmlTagUtils.PANEL_HEADING)).text == HtmlTagUtils.POPULAR_MAKES }

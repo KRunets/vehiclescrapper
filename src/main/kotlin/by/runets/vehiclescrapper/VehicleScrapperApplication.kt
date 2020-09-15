@@ -3,8 +3,6 @@ package by.runets.vehiclescrapper
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-//ToDo
-// 1. DamageType
 @SpringBootApplication
 class VehicleScrapperApplication
 

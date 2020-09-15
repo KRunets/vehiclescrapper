@@ -28,7 +28,7 @@ import java.time.Duration
 @Configuration
 @EnableTransactionManagement
 @EnableR2dbcRepositories("by.runets.vehiclescrapper")
-class Configuration (private val databaseProperties: DatabaseProperties) : AbstractR2dbcConfiguration() {
+class Configuration(private val databaseProperties: DatabaseProperties) : AbstractR2dbcConfiguration() {
     private val POSTGRES_DRIVER: String = "pool";
     private val POSTGRES_PROTOCOL: String = "postgresql";
 

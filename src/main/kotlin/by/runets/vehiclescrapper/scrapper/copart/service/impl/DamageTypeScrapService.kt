@@ -1,7 +1,7 @@
 package by.runets.vehiclescrapper.scrapper.copart.service.impl
 
-import by.runets.vehiclescrapper.database.domain.lookup.DamageType
-import by.runets.vehiclescrapper.database.service.lookup.DamageTypeService
+import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
+import by.runets.vehiclescrapper.persistence.service.lookup.DamageTypeService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.DamageTypeScrapper
 import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,8 +1,10 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider.impl
 
-import by.runets.vehiclescrapper.database.domain.lookup.vehicle.TransmissionType
+import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
 import by.runets.vehiclescrapper.scrapper.copart.provider.IScrapper
-import by.runets.vehiclescrapper.utils.HtmlTagUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils
+import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.waitBy
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.support.ui.ExpectedConditions
@@ -19,9 +21,7 @@ class TransmissionTypeScrapper(@Autowired private val chromeDriver: ChromeDriver
         val page = "https://www.copart.com/search/toyota/"
         chromeDriver.get(page)
 
-        val wait = WebDriverWait(chromeDriver, 5)
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className(HtmlTagUtils.LIST_GROUP_ITEM)))
-
+        waitBy(chromeDriver, By.className(HtmlTagUtils.LIST_GROUP_ITEM))
         chromeDriver
                 .findElements(By.name(HtmlTagUtils.TRANSMISSION_TYPE))
                 .forEach { pageData ->

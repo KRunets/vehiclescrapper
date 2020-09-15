@@ -16,7 +16,7 @@ class StringUtils {
             return string
         }
 
-        private fun splitBy(isContainsDash: Boolean, string: String) : List<String> {
+        private fun splitBy(isContainsDash: Boolean, string: String): List<String> {
             return if (isContainsDash) string.split("-") else string.split("%20")
         }
 

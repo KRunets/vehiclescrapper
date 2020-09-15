@@ -18,5 +18,23 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="engine-type-1" author="k.runets">
+        <sql>
+            CREATE TABLE engine_type  (
+            id uuid primary key DEFAULT uuid_generate_v4 (),
+            type text,
+            make_lookup_id UUID
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="engine-type-2" author="k.runets">
+        <addForeignKeyConstraint constraintName="fk_engine_type_make_lookup"
+                                 baseTableName="engine_type"
+                                 baseColumnNames="make_lookup_id"
+                                 referencedTableName="make_lookup"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>
 

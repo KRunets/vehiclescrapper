@@ -1,9 +1,0 @@
-package by.runets.vehiclescrapper.database.repository.lookup
-
-import by.runets.vehiclescrapper.database.domain.lookup.DamageType
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import org.springframework.stereotype.Repository
-import java.util.*
-
-@Repository
-interface DamageTypeRepository : ReactiveCrudRepository<DamageType, UUID>

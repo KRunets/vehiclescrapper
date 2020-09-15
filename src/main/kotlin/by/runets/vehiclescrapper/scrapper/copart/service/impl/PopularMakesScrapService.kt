@@ -1,7 +1,7 @@
 package by.runets.vehiclescrapper.scrapper.copart.service.impl
 
-import by.runets.vehiclescrapper.database.domain.lookup.vehicle.MakeLookup
-import by.runets.vehiclescrapper.database.service.lookup.vehicle.MakeLookupService
+import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
+import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.PopularMakesScrapper
 import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
 import org.springframework.beans.factory.annotation.Autowired
