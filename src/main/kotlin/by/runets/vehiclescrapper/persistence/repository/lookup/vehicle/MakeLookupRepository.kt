@@ -11,4 +11,11 @@ import java.util.*
 interface MakeLookupRepository : ReactiveCrudRepository<MakeLookup, UUID> {
     @Query("SELECT * FROM make_lookup WHERE type = $1")
     fun findByType(type: String): Flux<MakeLookup>
+
+    @Query("SELECT *\n" +
+            "FROM make_lookup\n" +
+            "WHERE TYPE NOT IN (SELECT distinct m.type\n" +
+            "                   FROM make_lookup AS m\n" +
+            "                            INNER JOIN engine_type AS e ON e.make_lookup_id = m.id)")
+    fun findActualMakeLookups() : Flux<MakeLookup>
 }

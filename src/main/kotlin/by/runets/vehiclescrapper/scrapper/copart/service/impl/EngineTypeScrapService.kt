@@ -18,14 +18,18 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
     override suspend fun scrapAndSave() {
         val engineTypeDataSet = mutableSetOf<EngineType>()
 
-        val makeLookupDataSet = makeLookupService.findAll()
-        makeLookupDataSet.map { makeLookup: MakeLookup ->
-            run {
-                val data = engineTypeScrapper.scrap(makeLookup)
-                println("Parsed data $data")
-                engineTypeDataSet.addAll(data)
-            }
-        }.onNext { engineTypeService.saveAll(engineTypeDataSet) }.subscribe()
+        val makeLookupDataSet = makeLookupService.findActualMakeLookups()
+
+        makeLookupDataSet
+                .map { makeLookup: MakeLookup ->
+                    run {
+                        println("Make ${makeLookup.type}")
+                        val data = engineTypeScrapper.scrap(makeLookup)
+                        println("Parsed data $data")
+                        engineTypeDataSet.addAll(data)
+                    }
+                }.onNext { engineTypeService.saveAll(engineTypeDataSet) }
+                .subscribe()
     }
 
     override suspend fun scrapAndSaveByMake(make: String) {

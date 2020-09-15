@@ -8,15 +8,18 @@ import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
+import reactor.core.publisher.Flux
 
 @Service
 class MakeLookupService(@Autowired private var makeLookupRepository: MakeLookupRepository,
                         @Autowired private var transactionalOperator: TransactionalOperator)
-    : AbstractService<MakeLookup>(
-        repository = makeLookupRepository,
-        transactionalOperator = transactionalOperator), IMakeLookupService {
+    : AbstractService<MakeLookup>(repository = makeLookupRepository, transactionalOperator = transactionalOperator), IMakeLookupService {
 
     override suspend fun findByType(type: String): MakeLookup {
         return transactionalOperator.transactional(makeLookupRepository.findByType(type)).awaitFirst()
+    }
+
+    override suspend fun findActualMakeLookups(): Flux<MakeLookup> {
+        return transactionalOperator.transactional(makeLookupRepository.findActualMakeLookups())
     }
 }
