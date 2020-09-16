@@ -19,7 +19,6 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
         val engineTypeDataSet = mutableSetOf<EngineType>()
 
         val makeLookupDataSet = makeLookupService.findActualMakeLookups()
-
         makeLookupDataSet
                 .map { makeLookup: MakeLookup ->
                     run {
