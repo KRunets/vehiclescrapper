@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class TransmissionTypeScrapService(@Autowired private var transmissionTypeService: TransmissionTypeService,
-                                   @Autowired private var transmissionTypeScrapper: TransmissionTypeScrapper) : AbstractScrapService<Set<TransmissionType>>(), IScrapService<Set<TransmissionType>> {
+                                   @Autowired private var transmissionTypeScrapper: TransmissionTypeScrapper) : AbstractScrapService<Set<TransmissionType>>() {
 
     override suspend fun scrapAndSave(): Set<TransmissionType> {
         val transmissionTypeSet = transmissionTypeScrapper.scrap()

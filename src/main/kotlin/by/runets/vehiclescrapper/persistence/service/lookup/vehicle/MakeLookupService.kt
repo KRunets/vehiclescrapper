@@ -26,4 +26,8 @@ class MakeLookupService(@Autowired private var makeLookupRepository: MakeLookupR
     override suspend fun findMakeLookupSetByEngineType(): Flux<MakeLookup> {
         return transactionalOperator.transactional(makeLookupRepository.findMakeLookupSetByEngineType())
     }
+
+    override suspend fun findMakeLookupSetByModelLookup(): Flux<MakeLookup> {
+        return transactionalOperator.transactional(makeLookupRepository.findMakeLookupSetByModelLookup())
+    }
 }

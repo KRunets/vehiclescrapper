@@ -11,14 +11,17 @@ class HtmlTagUtils {
         val FUEL = "FUEL"
         val DAMAGE = "PRID"
         val ENGN = "ENGN"
+        val MODL = "MODL"
         val TRANSMISSION_TYPE = "TMTP"
 
         val VALUE_ATTRIBUTE = "value"
 
+        val MODEL_COLLAPSIBLE_PANEL = "collapseinside4"
         val DAMAGE_COLLAPSIBLE_PANEL = "collapseinside13"
         val BODY_STYLE_COLLAPSIBLE_PANEL = "collapseinside14"
         val ENGINE_COLLAPSIBLE_PANEL = "collapseinside16"
 
+        val MODEL_COLLAPSIBLE_BTN = "//a[@href='#collapseinside4']"
         val DAMAGE_COLLAPSIBLE_BTN = "//a[@href='#collapseinside13']"
         val BODY_STYLE_COLLAPSIBLE_BTN = "//a[@href='#collapseinside14']"
         val ENGINE_COLLAPSIBLE_BTN = "//a[@href='#collapseinside16']"

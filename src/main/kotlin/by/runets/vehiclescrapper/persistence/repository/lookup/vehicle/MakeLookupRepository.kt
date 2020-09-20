@@ -17,4 +17,7 @@ interface MakeLookupRepository : ReactiveCrudRepository<MakeLookup, UUID> {
 
     @Query("SELECT * FROM make_lookup WHERE id NOT IN (SELECT DISTINCT make_lookup_id FROM engine_type)")
     fun findMakeLookupSetByEngineType() : Flux<MakeLookup>
+
+    @Query("SELECT * FROM make_lookup WHERE id NOT IN (SELECT DISTINCT make FROM model_lookup)")
+    fun findMakeLookupSetByModelLookup() : Flux<MakeLookup>
 }

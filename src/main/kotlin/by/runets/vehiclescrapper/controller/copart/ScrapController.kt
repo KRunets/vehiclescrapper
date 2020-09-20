@@ -18,16 +18,22 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
                       @Autowired private val damageTypeScrapService: DamageTypeScrapService,
                       @Autowired private val transmissionTypeScrapService: TransmissionTypeScrapService,
                       @Autowired private val bodyStyleTypeScrapService: BodyStyleTypeScrapService,
-                      @Autowired private val engineTypeScrapService: EngineTypeScrapService) {
+                      @Autowired private val engineTypeScrapService: EngineTypeScrapService,
+                      @Autowired private val modelLookupScrapService: ModelLookupScrapService) {
 
     @GetMapping("/makes-popular")
     suspend fun scrapPoplarMakes(): Set<MakeLookup> {
         return popularMakesScrapService.scrapAndSave()
     }
 
+    @GetMapping("/model-lookup")
+    suspend fun scrapModelLookup() {
+        modelLookupScrapService.scrapAndSaveVoid()
+    }
+
     @GetMapping("/type/fuel")
     suspend fun scrapFuelType() {
-        fuelTypeScrapService.scrapAndSave()
+        fuelTypeScrapService.scrapAndSaveVoid()
     }
 
     @GetMapping("/type/fuel/make/{make}")
@@ -50,9 +56,8 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
         return bodyStyleTypeScrapService.scrapAndSave()
     }
 
-    @GetMapping("/type/enginetype")
+    @GetMapping("/type/engine")
     suspend fun scrapEngineType() {
-        engineTypeScrapService.scrapAndSave()
+        engineTypeScrapService.scrapAndSaveVoid()
     }
-
 }

@@ -2,7 +2,6 @@ package by.runets.vehiclescrapper.scrapper.copart.provider.impl
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.EngineType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
-import by.runets.vehiclescrapper.scrapper.copart.provider.IEngineTypeScrapper
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
@@ -13,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType>(), IEngineTypeScrapper {
-    override fun scrap(makeLookup: MakeLookup): Set<EngineType> {
+class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType>() {
+    override fun scrapByMakeLookup(makeLookup: MakeLookup): Set<EngineType> {
         val engineTypeSet = mutableSetOf<EngineType>()
 
         val page = "https://www.copart.com/search/"

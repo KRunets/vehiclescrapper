@@ -6,7 +6,6 @@ import java.util.*
 
 @Table("transmission_type")
 class TransmissionType {
-
     @Id
     var id: UUID? = null
     var type: String? = ""
