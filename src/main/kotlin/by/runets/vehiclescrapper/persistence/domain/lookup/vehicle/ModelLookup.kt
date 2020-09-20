@@ -7,10 +7,5 @@ import java.util.*
 data class ModelLookup(
         private val id: UUID,
         private val make: UUID,
-        private val model: String,
-        private val vehicleType: UUID,
-        private val bodyStyle: UUID,
-        private val fuelType: UUID,
-        private val transmissionType: UUID,
-        private val driveTrain: UUID
+        private val model: String
 )
