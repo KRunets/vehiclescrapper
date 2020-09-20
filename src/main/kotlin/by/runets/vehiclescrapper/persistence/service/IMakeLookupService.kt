@@ -9,4 +9,6 @@ interface IMakeLookupService {
     suspend fun findMakeLookupSetByFuelType(): Flux<MakeLookup>
 
     suspend fun findMakeLookupSetByEngineType(): Flux<MakeLookup>
+
+    suspend fun findMakeLookupSetByModelLookup(): Flux<MakeLookup>
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class DamageTypeScrapService(@Autowired private var damageTypeScrapper: DamageTypeScrapper,
-                             @Autowired private var damageTypeService: DamageTypeService) : AbstractScrapService<Set<DamageType>>(), IScrapService<Set<DamageType>> {
+                             @Autowired private var damageTypeService: DamageTypeService) : AbstractScrapService<Set<DamageType>>() {
 
     override suspend fun scrapAndSave(): Set<DamageType> {
         val damageTypeDataSet = damageTypeScrapper.scrap()

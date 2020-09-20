@@ -20,7 +20,7 @@ class ScrapperUtils {
 
         fun scrollElement(chromeDriver: ChromeDriver, webelement: WebElement) {
             val actions = Actions(chromeDriver)
-            for (i in 0..2) {
+            for (i in 0..5) {
                 actions.moveToElement(webelement)
                         .clickAndHold()
                         .moveByOffset(0, 10)

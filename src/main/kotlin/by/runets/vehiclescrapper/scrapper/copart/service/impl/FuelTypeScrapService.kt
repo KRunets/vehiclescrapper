@@ -5,7 +5,6 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.FuelTypeService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.FuelTypeScrapper
-import by.runets.vehiclescrapper.scrapper.copart.service.IFuelTypeScrapService
 import by.runets.vehiclescrapper.utils.coroutines.onNext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -13,15 +12,15 @@ import org.springframework.stereotype.Service
 @Service
 class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupService,
                            @Autowired private val fuelTypeService: FuelTypeService,
-                           @Autowired private val fuelTypeScrapper: FuelTypeScrapper) : IFuelTypeScrapService {
+                           @Autowired private val fuelTypeScrapper: FuelTypeScrapper) : AbstractScrapService<FuelType>() {
 
-    override suspend fun scrapAndSave() {
+    override suspend fun scrapAndSaveVoid() {
         val fuelTypeDataSet = mutableSetOf<FuelType>()
 
         val makeLookupDataSet = makeLookupService.findMakeLookupSetByFuelType()
         makeLookupDataSet.map { makeLookup: MakeLookup ->
             run {
-                val data = fuelTypeScrapper.scrap(makeLookup)
+                val data = fuelTypeScrapper.scrapByMakeLookup(makeLookup)
                 fuelTypeDataSet.addAll(data)
             }
         }.onNext { fuelTypeService.saveAll(fuelTypeDataSet) }.subscribe()
@@ -29,7 +28,7 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
 
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
-        val data = fuelTypeScrapper.scrap(makeLookup)
+        val data = fuelTypeScrapper.scrapByMakeLookup(makeLookup)
         fuelTypeService.saveAll(data)
     }
 }

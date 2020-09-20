@@ -14,7 +14,6 @@ class MakeLookup {
     constructor(type: String?) {
         this.type = type
     }
-
     constructor(id: UUID?, type: String?) {
         this.id = id
         this.type = type
