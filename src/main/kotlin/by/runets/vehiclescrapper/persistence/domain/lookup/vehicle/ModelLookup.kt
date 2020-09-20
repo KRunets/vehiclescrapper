@@ -7,9 +7,9 @@ import java.util.*
 @Table("model_lookup")
 class ModelLookup(make: UUID, model: String) {
     @Id
-    private var id: UUID? = null
-    private var make: UUID? = make
-    private var model: String? = model
+    var id: UUID? = null
+    var make: UUID? = make
+    var model: String? = model
 
     override fun toString(): String {
         return "ModelLookup(id=$id, make=$make, model=$model)"

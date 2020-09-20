@@ -9,33 +9,9 @@ import java.util.*
 @Table("fuel_type")
 class FuelType(type: String, makeLookupUUID: UUID) {
     @Id
-    private var id: UUID? = null
-    private var type: String? = type
-    private var makeLookupId: UUID? = makeLookupUUID
-
-    fun setId(id: UUID) {
-        this.id = id
-    }
-
-    fun getId(): UUID? {
-        return id
-    }
-
-    fun setType(type: String) {
-        this.type = type
-    }
-
-    fun getType(): String? {
-        return type
-    }
-
-    fun setMakeLookupId(id: UUID) {
-        this.makeLookupId = id
-    }
-
-    fun getMakeLookupId(): UUID? {
-        return makeLookupId
-    }
+    var id: UUID? = null
+    var type: String? = type
+    var makeLookupId: UUID? = makeLookupUUID
 
     override fun toString(): String {
         return "FuelType(id=$id, makeLookup=${makeLookupId}, type=$type)"

@@ -6,6 +6,7 @@ import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.waitBy
+import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType>() {
+
+    @LogExecutionTime
     override fun scrapByMakeLookup(makeLookup: MakeLookup): Set<EngineType> {
         val engineTypeSet = mutableSetOf<EngineType>()
 

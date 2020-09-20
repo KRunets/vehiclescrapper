@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager
 import org.springframework.data.r2dbc.convert.R2dbcCustomConversions
@@ -26,7 +27,7 @@ import java.time.Duration
 
 
 @Configuration
-@EnableTransactionManagement
+@EnableAspectJAutoProxy
 @EnableR2dbcRepositories("by.runets.vehiclescrapper")
 class Configuration(private val databaseProperties: DatabaseProperties) : AbstractR2dbcConfiguration() {
     private val POSTGRES_DRIVER: String = "pool";

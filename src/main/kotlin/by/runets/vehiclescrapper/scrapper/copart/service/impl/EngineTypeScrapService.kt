@@ -5,7 +5,9 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.EngineTypeTypeService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.EngineTypeScrapper
+import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onNext
+import lombok.extern.java.Log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -14,6 +16,7 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
                              @Autowired private val engineTypeService: EngineTypeTypeService,
                              @Autowired private val engineTypeScrapper: EngineTypeScrapper) : AbstractScrapService<EngineType>() {
 
+    @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {
         val engineTypeDataSet = mutableSetOf<EngineType>()
 
