@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
+import org.springframework.core.convert.converter.Converter
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager
 import org.springframework.data.r2dbc.convert.R2dbcCustomConversions
@@ -21,9 +22,9 @@ import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
-import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.reactive.TransactionalOperator
 import java.time.Duration
+import java.util.*
 
 
 @Configuration
@@ -71,11 +72,11 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
 
     @Bean
     override fun r2dbcCustomConversions(): R2dbcCustomConversions {
-        return R2dbcCustomConversions(
-                listOf(
-                        UUIDConverter()
-                )
-        )
+        val converters: MutableList<Converter<*, *>?> = ArrayList()
+        converters.add(UUIDConverter())
+     /*   converters.add(JsonToMapConverter(objectMapper))
+        converters.add(MapToJsonConverter(objectMapper))
+     */   return R2dbcCustomConversions(storeConversions, converters)
     }
 
     @Bean

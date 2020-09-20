@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType>() {
+class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType, MakeLookup>() {
 
     @LogExecutionTime
-    override fun scrapByMakeLookup(makeLookup: MakeLookup): Set<EngineType> {
+    override fun scrapByCriteria(makeLookup: MakeLookup): Set<EngineType> {
         val engineTypeSet = mutableSetOf<EngineType>()
 
         val page = "https://www.copart.com/search/"

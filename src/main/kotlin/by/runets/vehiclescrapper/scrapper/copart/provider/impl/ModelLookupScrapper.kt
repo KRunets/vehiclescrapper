@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<ModelLookup>() {
-    override fun scrapByMakeLookup(makeLookup: MakeLookup): Set<ModelLookup> {
+class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<ModelLookup, MakeLookup>() {
+    override fun scrapByCriteria(makeLookup: MakeLookup): Set<ModelLookup> {
         val modelLookupSet = mutableSetOf<ModelLookup>()
 
         val page = "https://www.copart.com/search/"

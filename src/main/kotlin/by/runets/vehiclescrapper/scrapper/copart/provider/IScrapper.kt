@@ -1,9 +1,7 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider
 
-import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
-
-interface IScrapper<T> {
+interface IScrapper<T, C> {
     suspend fun scrap(): T?
 
-    fun scrapByMakeLookup(makeLookup: MakeLookup): Set<T>
+    fun scrapByCriteria(criteria: C): Set<T>
 }

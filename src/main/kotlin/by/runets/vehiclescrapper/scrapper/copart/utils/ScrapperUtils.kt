@@ -8,7 +8,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
 class ScrapperUtils {
+
+
     companion object {
+        val MAKE = "make"
+        val MODEL = "model"
+        val YEAR = "year"
+        val BODY_STYLE = "bodyStyleType"
+        val ENGINE_TYPE = "engineType"
+        val FUEL_TYPE = "fuelType"
+        val ODOMETER = "odometer"
+        val TRANSMISSION_TYPE = "transmissionType"
+
         fun clickBy(chromeDriver: ChromeDriver, by: By) {
             chromeDriver.findElement(by).click()
         }

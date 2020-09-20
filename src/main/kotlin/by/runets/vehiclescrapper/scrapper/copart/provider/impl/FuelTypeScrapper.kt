@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class FuelTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<FuelType>() {
-    override fun scrapByMakeLookup(makeLookup: MakeLookup): Set<FuelType> {
+class FuelTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<FuelType, MakeLookup>() {
+    override fun scrapByCriteria(makeLookup: MakeLookup): Set<FuelType> {
         val fuelTypeSet = mutableSetOf<FuelType>()
 
         val page = "https://www.copart.com/search/"

@@ -24,6 +24,7 @@
 		<liquibase.propertyFile>${project.basedir}\src\main\resources\db\liquibase.properties</liquibase.propertyFile>
 		<docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
 		<testcontainers.version>1.14.3</testcontainers.version>
+		<postgres.rdbc.version>0.8.5.RELEASE</postgres.rdbc.version>
 	</properties>
 
 	<dependencies>
@@ -76,6 +77,7 @@
 		<dependency>
 			<groupId>io.r2dbc</groupId>
 			<artifactId>r2dbc-postgresql</artifactId>
+			<version>${postgres.rdbc.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

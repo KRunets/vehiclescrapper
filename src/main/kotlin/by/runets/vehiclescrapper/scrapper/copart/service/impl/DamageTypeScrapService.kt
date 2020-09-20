@@ -4,13 +4,14 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
 import by.runets.vehiclescrapper.persistence.service.lookup.DamageTypeService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.DamageTypeScrapper
 import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
+import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class DamageTypeScrapService(@Autowired private var damageTypeScrapper: DamageTypeScrapper,
                              @Autowired private var damageTypeService: DamageTypeService) : AbstractScrapService<Set<DamageType>>() {
-
+    @LogExecutionTime
     override suspend fun scrapAndSave(): Set<DamageType> {
         val damageTypeDataSet = damageTypeScrapper.scrap()
         damageTypeService.saveAll(damageTypeDataSet!!)

@@ -7,7 +7,6 @@ import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupSe
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.EngineTypeScrapper
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onNext
-import lombok.extern.java.Log
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -24,16 +23,17 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
         makeLookupDataSet
                 .map { makeLookup: MakeLookup ->
                     run {
-                        val data = engineTypeScrapper.scrapByMakeLookup(makeLookup)
+                        val data = engineTypeScrapper.scrapByCriteria(makeLookup)
                         engineTypeDataSet.addAll(data)
                     }
                 }.onNext { engineTypeService.saveAll(engineTypeDataSet) }
                 .subscribe()
     }
 
+    @LogExecutionTime
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
-        val data = engineTypeScrapper.scrapByMakeLookup(makeLookup)
+        val data = engineTypeScrapper.scrapByCriteria(makeLookup)
         engineTypeService.saveAll(data)
     }
 }

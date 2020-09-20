@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class BodyStyleTypeScrapService(@Autowired private var bodyStyleTypeScrapper: BodyStyleTypeScrapper,
-                                @Autowired private var bodyStyleTypeService: BodyStyleTypeService) : AbstractScrapService<Set<BodyStyleType>>() {
+class VehicleScrapService(@Autowired private var bodyStyleTypeScrapper: BodyStyleTypeScrapper,
+                          @Autowired private var bodyStyleTypeService: BodyStyleTypeService) : AbstractScrapService<Set<BodyStyleType>>() {
     @LogExecutionTime
     override suspend fun scrapAndSave(): Set<BodyStyleType> {
         val damageTypeDataSet = bodyStyleTypeScrapper.scrap()

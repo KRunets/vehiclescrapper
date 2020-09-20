@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class PopularMakesScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<Set<MakeLookup>>(), IScrapper<Set<MakeLookup>> {
+class PopularMakesScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<Set<MakeLookup>, MakeLookup>() {
 
 
     override suspend fun scrap(): Set<MakeLookup> {
