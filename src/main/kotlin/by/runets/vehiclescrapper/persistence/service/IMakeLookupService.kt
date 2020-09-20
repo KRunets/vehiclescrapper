@@ -6,5 +6,7 @@ import reactor.core.publisher.Flux
 interface IMakeLookupService {
     suspend fun findByType(type: String): MakeLookup
 
-    suspend fun findActualMakeLookups(): Flux<MakeLookup>
+    suspend fun findMakeLookupSetByFuelType(): Flux<MakeLookup>
+
+    suspend fun findMakeLookupSetByEngineType(): Flux<MakeLookup>
 }

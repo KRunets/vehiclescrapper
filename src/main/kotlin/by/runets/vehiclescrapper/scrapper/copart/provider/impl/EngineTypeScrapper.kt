@@ -4,7 +4,6 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.EngineType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.scrapper.copart.provider.IEngineTypeScrapper
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
-import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.waitBy
@@ -27,9 +26,18 @@ class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : Ab
 
         chromeDriver
                 .findElements(By.name(HtmlTagUtils.ENGN))
-                .forEach { pageData -> engineTypeSet.add(EngineType(pageData.getAttribute(HtmlTagUtils.VALUE_ATTRIBUTE), makeLookup.id!!)) }
+                .forEach { pageData ->
+                    run {
+                        val engineType = replaceEmptySpace(pageData.getAttribute(HtmlTagUtils.VALUE_ATTRIBUTE))
+                        engineTypeSet.add(EngineType(engineType, makeLookup.id!!))
+                    }
+                }
 
         return engineTypeSet
+    }
+
+    private fun replaceEmptySpace(source: String): String {
+        return source.split("  ")[0]
     }
 
 }

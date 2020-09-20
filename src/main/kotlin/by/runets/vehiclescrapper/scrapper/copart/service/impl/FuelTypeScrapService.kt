@@ -18,11 +18,10 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
     override suspend fun scrapAndSave() {
         val fuelTypeDataSet = mutableSetOf<FuelType>()
 
-        val makeLookupDataSet = makeLookupService.findAll()
+        val makeLookupDataSet = makeLookupService.findMakeLookupSetByFuelType()
         makeLookupDataSet.map { makeLookup: MakeLookup ->
             run {
                 val data = fuelTypeScrapper.scrap(makeLookup)
-                println("Parsed data $data")
                 fuelTypeDataSet.addAll(data)
             }
         }.onNext { fuelTypeService.saveAll(fuelTypeDataSet) }.subscribe()
@@ -31,7 +30,6 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
         val data = fuelTypeScrapper.scrap(makeLookup)
-        println("Parsed data $data")
         fuelTypeService.saveAll(data)
     }
 }

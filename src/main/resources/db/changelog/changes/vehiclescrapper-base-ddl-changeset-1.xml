@@ -36,5 +36,59 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="model_lookup-1" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP  constraint fk_model_vehicle_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-2" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP constraint fk_model_body_style_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-3" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP constraint fk_model_fuel_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-4" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP constraint fk_model_drive_train_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-5" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP constraint fk_model_transmission_type;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-6" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP column vehicle_type_id;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-7" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP column body_style_type_id;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-8" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP column fuel_type_id;
+        </sql>
+    </changeSet>
+
+    <changeSet id="model_lookup-9" author="k.runets">
+        <sql>
+            ALTER TABLE model_lookup DROP column transmission_type_id;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
