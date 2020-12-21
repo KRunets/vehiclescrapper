@@ -1,5 +1,6 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider.impl
 
+import by.runets.vehiclescrapper.configuration.properties.ScrapperProperties
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.ModelLookup
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<ModelLookup>() {
+class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapper<ModelLookup>() {
+
+
     override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<ModelLookup> {
         val modelLookupSet = mutableSetOf<ModelLookup>()
 
@@ -23,7 +26,7 @@ class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : A
         ScrapperUtils.clickBy(chromeDriver, By.xpath(HtmlTagUtils.MODEL_COLLAPSIBLE_BTN))
         ScrapperUtils.scrollElement(chromeDriver, chromeDriver.findElements(By.name(HtmlTagUtils.MODL)).first())
 
-        Thread.sleep(500)
+        Thread.sleep(scrapperProperties.modelTimeout)
 
         chromeDriver
                 .findElements(By.name(HtmlTagUtils.MODL))
@@ -33,6 +36,7 @@ class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : A
                         modelLookupSet.add(ModelLookup(makeLookup.id!!, model))
                     }
                 }
+
         return modelLookupSet
     }
 }
