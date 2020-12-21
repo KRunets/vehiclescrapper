@@ -1,8 +1,6 @@
 package by.runets.vehiclescrapper.controller.copart.lookup
 
-import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.FuelType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
-import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.FuelTypeService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.TransmissionTypeService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import kotlinx.coroutines.flow.Flow

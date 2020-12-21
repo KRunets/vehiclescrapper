@@ -17,11 +17,13 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
     @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {
         val fuelTypeDataSet = mutableSetOf<FuelType>()
-
+        val searchCriteria = mutableMapOf<String, Any>()
         val makeLookupDataSet = makeLookupService.findMakeLookupSetByFuelType()
+
         makeLookupDataSet.map { makeLookup: MakeLookup ->
             run {
-                val data = fuelTypeScrapper.scrapByCriteria(makeLookup)
+                searchCriteria[MakeLookup::javaClass.name] = makeLookup
+                val data = fuelTypeScrapper.scrapByCriteria(searchCriteria)
                 fuelTypeDataSet.addAll(data)
             }
         }.onNext { fuelTypeService.saveAll(fuelTypeDataSet) }.subscribe()
@@ -29,7 +31,9 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
     @LogExecutionTime
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
-        val data = fuelTypeScrapper.scrapByCriteria(makeLookup)
+        val searchCriteria = mutableMapOf<String, Any>()
+        searchCriteria[MakeLookup::javaClass.name] = makeLookup
+        val data = fuelTypeScrapper.scrapByCriteria(searchCriteria)
         fuelTypeService.saveAll(data)
     }
 }

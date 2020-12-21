@@ -1,8 +1,6 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider.impl
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.BodyStyleType
-import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
-import by.runets.vehiclescrapper.scrapper.copart.provider.IScrapper
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
@@ -14,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class BodyStyleTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<Set<BodyStyleType>, MakeLookup>() {
+class BodyStyleTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<Set<BodyStyleType>>() {
 
     @LogExecutionTime
     override suspend fun scrap(): Set<BodyStyleType>? {

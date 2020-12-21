@@ -7,8 +7,10 @@ import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.ModelLookupS
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.ModelLookupScrapper
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onNext
+import org.openqa.selenium.StaleElementReferenceException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import reactor.util.retry.Retry
 
 @Service
 class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLookupService,
@@ -18,11 +20,14 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
     @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {
         val modelLookupDataSet = mutableSetOf<ModelLookup>()
+        val searchCriteria = mutableMapOf<String, Any>()
+
         val makeLookupDataSet = makeLookupService.findMakeLookupSetByModelLookup()
         makeLookupDataSet
                 .map { makeLookup: MakeLookup ->
                     run {
-                        val data = modelLookupScrapper.scrapByCriteria(makeLookup)
+                        searchCriteria[MakeLookup::javaClass.name] = makeLookup
+                        val data = modelLookupScrapper.scrapByCriteria(searchCriteria)
                         println("Make : ${makeLookup.type}")
                         println("Model {\n" +
                                 "Total count: : ${data.size}\n" +
@@ -30,14 +35,19 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
                                 "}")
                         modelLookupDataSet.addAll(data)
                     }
-                }.onNext { modelLookupService.saveAll(modelLookupDataSet) }
+                }
+                .doOnError{error -> println("Error $error")}
+                .onNext { modelLookupService.saveAll(modelLookupDataSet) }
+                .retry(2)
                 .subscribe()
     }
 
     @LogExecutionTime
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
-        val data = modelLookupScrapper.scrapByCriteria(makeLookup)
+        val searchCriteria = mutableMapOf<String, Any>()
+        searchCriteria[MakeLookup::javaClass.name] = makeLookup
+        val data = modelLookupScrapper.scrapByCriteria(searchCriteria)
         modelLookupService.saveAll(data)
     }
 }

@@ -10,16 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<ModelLookup, MakeLookup>() {
-    override fun scrapByCriteria(makeLookup: MakeLookup): Set<ModelLookup> {
+class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<ModelLookup>() {
+    override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<ModelLookup> {
         val modelLookupSet = mutableSetOf<ModelLookup>()
 
         val page = "https://www.copart.com/search/"
 
+        val makeLookup = searchCriteria?.get(MakeLookup::javaClass.name) as MakeLookup
+
         chromeDriver.get(page + makeLookup.type!!.toLowerCase())
         ScrapperUtils.waitBy(chromeDriver, By.className(HtmlTagUtils.LIST_GROUP_ITEM))
         ScrapperUtils.clickBy(chromeDriver, By.xpath(HtmlTagUtils.MODEL_COLLAPSIBLE_BTN))
-        ScrapperUtils.scrollElement(chromeDriver, chromeDriver.findElement(By.id(HtmlTagUtils.MODEL_COLLAPSIBLE_PANEL)))
+        ScrapperUtils.scrollElement(chromeDriver, chromeDriver.findElements(By.name(HtmlTagUtils.MODL)).first())
+
+        Thread.sleep(500)
 
         chromeDriver
                 .findElements(By.name(HtmlTagUtils.MODL))
@@ -29,11 +33,6 @@ class ModelLookupScrapper(@Autowired private val chromeDriver: ChromeDriver) : A
                         modelLookupSet.add(ModelLookup(makeLookup.id!!, model))
                     }
                 }
-
         return modelLookupSet
-    }
-
-    private fun replaceEmptySpace(source: String): String {
-        return source.split(" ")[0]
     }
 }

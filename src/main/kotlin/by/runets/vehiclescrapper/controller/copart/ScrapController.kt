@@ -7,10 +7,7 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionT
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.*
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/scrap")

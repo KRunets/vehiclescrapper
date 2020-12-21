@@ -3,14 +3,15 @@ package by.runets.vehiclescrapper.scrapper.copart.service.impl
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.TransmissionTypeService
 import by.runets.vehiclescrapper.scrapper.copart.provider.impl.TransmissionTypeScrapper
-import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class TransmissionTypeScrapService(@Autowired private var transmissionTypeService: TransmissionTypeService,
-                                   @Autowired private var transmissionTypeScrapper: TransmissionTypeScrapper) : AbstractScrapService<Set<TransmissionType>>() {
+class TransmissionTypeScrapService(@Autowired
+                                   private var transmissionTypeService: TransmissionTypeService,
+                                   @Autowired
+                                   private var transmissionTypeScrapper: TransmissionTypeScrapper) : AbstractScrapService<Set<TransmissionType>>() {
 
     @LogExecutionTime
     override suspend fun scrapAndSave(): Set<TransmissionType> {

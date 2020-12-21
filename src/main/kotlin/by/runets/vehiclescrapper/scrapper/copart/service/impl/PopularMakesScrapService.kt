@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class PopularMakesScrapService(@Autowired private val makesScrapper: PopularMakesScrapper, @Autowired private val makeLookupService: MakeLookupService)
-    : AbstractScrapService<Set<MakeLookup>>() {
+class PopularMakesScrapService(@Autowired private val makesScrapper: PopularMakesScrapper,
+                               @Autowired private val makeLookupService: MakeLookupService) :
+        AbstractScrapService<Set<MakeLookup>>() {
 
     @LogExecutionTime
     override suspend fun scrapAndSave(): Set<MakeLookup> {

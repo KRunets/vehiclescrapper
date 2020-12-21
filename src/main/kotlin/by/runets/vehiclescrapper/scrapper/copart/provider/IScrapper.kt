@@ -1,7 +1,7 @@
 package by.runets.vehiclescrapper.scrapper.copart.provider
 
-interface IScrapper<T, C> {
+interface IScrapper<T> {
     suspend fun scrap(): T?
 
-    fun scrapByCriteria(criteria: C): Set<T>
+    fun scrapByCriteria(criteria: Map<String, Any>?): Set<T>
 }

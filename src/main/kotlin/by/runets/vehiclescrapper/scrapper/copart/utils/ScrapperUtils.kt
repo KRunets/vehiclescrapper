@@ -8,18 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 
 class ScrapperUtils {
-
-
     companion object {
-        val MAKE = "make"
-        val MODEL = "model"
-        val YEAR = "year"
-        val BODY_STYLE = "bodyStyleType"
-        val ENGINE_TYPE = "engineType"
-        val FUEL_TYPE = "fuelType"
-        val ODOMETER = "odometer"
-        val TRANSMISSION_TYPE = "transmissionType"
-
         fun clickBy(chromeDriver: ChromeDriver, by: By) {
             chromeDriver.findElement(by).click()
         }
@@ -30,16 +19,12 @@ class ScrapperUtils {
         }
 
         fun scrollElement(chromeDriver: ChromeDriver, webelement: WebElement) {
-            val actions = Actions(chromeDriver)
-            for (i in 0..5) {
-                actions.moveToElement(webelement)
-                        .clickAndHold()
-                        .moveByOffset(0, 10)
-                        .release(webelement)
-                        .build()
-                        .perform()
-            }
-            Thread.sleep(1000)
+            Actions(chromeDriver)
+                    .moveToElement(webelement)
+                    .doubleClick()
+                    .release(webelement)
+                    .build()
+                    .perform()
         }
     }
 }

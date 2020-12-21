@@ -20,10 +20,13 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
         val engineTypeDataSet = mutableSetOf<EngineType>()
 
         val makeLookupDataSet = makeLookupService.findMakeLookupSetByEngineType()
+        val searchCriteria = mutableMapOf<String, Any>()
+
         makeLookupDataSet
                 .map { makeLookup: MakeLookup ->
                     run {
-                        val data = engineTypeScrapper.scrapByCriteria(makeLookup)
+                        searchCriteria[MakeLookup::javaClass.name] = makeLookup
+                        val data = engineTypeScrapper.scrapByCriteria(searchCriteria)
                         engineTypeDataSet.addAll(data)
                     }
                 }.onNext { engineTypeService.saveAll(engineTypeDataSet) }
@@ -33,7 +36,10 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
     @LogExecutionTime
     override suspend fun scrapAndSaveByMake(make: String) {
         val makeLookup = makeLookupService.findByType(make)
-        val data = engineTypeScrapper.scrapByCriteria(makeLookup)
+        val searchCriteria = mutableMapOf<String, Any>()
+
+        searchCriteria[MakeLookup::javaClass.name] = makeLookup
+        val data = engineTypeScrapper.scrapByCriteria(searchCriteria)
         engineTypeService.saveAll(data)
     }
 }
