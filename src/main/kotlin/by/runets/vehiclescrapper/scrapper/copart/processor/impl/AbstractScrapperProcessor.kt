@@ -1,8 +1,8 @@
-package by.runets.vehiclescrapper.scrapper.copart.provider.impl
+package by.runets.vehiclescrapper.scrapper.copart.processor.impl
 
-import by.runets.vehiclescrapper.scrapper.copart.provider.IScrapper
+import by.runets.vehiclescrapper.scrapper.copart.processor.IScrapperProcessor
 
-abstract class AbstractScrapper<T> : IScrapper<T> {
+abstract class AbstractScrapperProcessor<T> : IScrapperProcessor<T> {
     override suspend fun scrap(): T? {
         TODO("not implemented")
     }

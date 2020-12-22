@@ -1,6 +1,8 @@
-package by.runets.vehiclescrapper.scrapper.copart.provider.impl
+package by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup
 
+import by.runets.vehiclescrapper.configuration.properties.ScrapperProperties
 import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
+import by.runets.vehiclescrapper.scrapper.copart.processor.impl.AbstractScrapperProcessor
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class DamageTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<Set<DamageType>>() {
+class DamageTypeScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperProcessor<Set<DamageType>>() {
     override suspend fun scrap(): Set<DamageType>? {
         val damageTypeSet = mutableSetOf<DamageType>()
 
@@ -21,7 +23,9 @@ class DamageTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : Ab
 
         waitBy(chromeDriver, By.className(HtmlTagUtils.LIST_GROUP_ITEM))
         clickBy(chromeDriver, By.xpath(HtmlTagUtils.DAMAGE_COLLAPSIBLE_BTN))
-        scrollElement(chromeDriver, chromeDriver.findElement(By.id(HtmlTagUtils.DAMAGE_COLLAPSIBLE_PANEL)))
+        scrollElement(chromeDriver, chromeDriver.findElements(By.name(HtmlTagUtils.DAMAGE)).first())
+
+        Thread.sleep(scrapperProperties.modelTimeout)
 
         chromeDriver
                 .findElements(By.name(HtmlTagUtils.DAMAGE))

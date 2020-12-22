@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait
 
 class ScrapperUtils {
     companion object {
+        val MAKE = "make"
+
         fun clickBy(chromeDriver: ChromeDriver, by: By) {
             chromeDriver.findElement(by).click()
         }
@@ -25,6 +27,12 @@ class ScrapperUtils {
                     .release(webelement)
                     .build()
                     .perform()
+        }
+
+        fun fillElement(chromeDriver: ChromeDriver, by: By, data : String) {
+            val element = chromeDriver.findElement(by)
+            element.click()
+            element.sendKeys(data)
         }
     }
 }

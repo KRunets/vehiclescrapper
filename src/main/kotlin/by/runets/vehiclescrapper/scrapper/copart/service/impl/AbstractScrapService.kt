@@ -14,4 +14,8 @@ abstract class AbstractScrapService<T> : IScrapService<T> {
     override suspend fun scrapAndSaveByMake(make: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override suspend fun scrapAndSaveByCriteria(searchCriteria: Map<String, Any>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

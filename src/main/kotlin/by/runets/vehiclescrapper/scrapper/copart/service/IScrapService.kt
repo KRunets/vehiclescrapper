@@ -6,5 +6,7 @@ interface IScrapService<T> {
 
     suspend fun scrapAndSaveVoid()
 
+    suspend fun scrapAndSaveByCriteria(searchCriteria : Map<String, Any>)
+
     suspend fun scrapAndSaveByMake(make: String)
 }

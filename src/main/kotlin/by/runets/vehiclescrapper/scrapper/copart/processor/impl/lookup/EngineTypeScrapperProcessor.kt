@@ -1,7 +1,8 @@
-package by.runets.vehiclescrapper.scrapper.copart.provider.impl
+package by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.EngineType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
+import by.runets.vehiclescrapper.scrapper.copart.processor.impl.AbstractScrapperProcessor
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class EngineTypeScrapper(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapper<EngineType>() {
+class EngineTypeScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperProcessor<EngineType>() {
 
     @LogExecutionTime
     override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<EngineType> {

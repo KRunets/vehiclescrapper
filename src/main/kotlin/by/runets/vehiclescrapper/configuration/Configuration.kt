@@ -1,6 +1,19 @@
 package by.runets.vehiclescrapper.configuration
 
 import by.runets.vehiclescrapper.configuration.properties.DatabaseProperties
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlCompositeObject
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.BODY
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.BODY_STYLE_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.DAMAGE
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.DAMAGE_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.ENGINE_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.ENGN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.FUEL
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.FUEL_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.MODEL_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.MODL
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.TRANSMISSION_COLLAPSIBLE_BTN
+import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils.Companion.TRANSMISSION_TYPE
 import by.runets.vehiclescrapper.utils.UUIDConverter
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
@@ -74,9 +87,9 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
     override fun r2dbcCustomConversions(): R2dbcCustomConversions {
         val converters: MutableList<Converter<*, *>?> = ArrayList()
         converters.add(UUIDConverter())
-     /*   converters.add(JsonToMapConverter(objectMapper))
-        converters.add(MapToJsonConverter(objectMapper))
-     */   return R2dbcCustomConversions(storeConversions, converters)
+        /*   converters.add(JsonToMapConverter(objectMapper))
+           converters.add(MapToJsonConverter(objectMapper))
+        */   return R2dbcCustomConversions(storeConversions, converters)
     }
 
     @Bean
@@ -90,4 +103,19 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER)
         return ChromeDriver(chromeOptions)
     }
+
+    @Bean
+    fun searchPageMap(): Map<String, HtmlCompositeObject> {
+        val searchPageMap = mutableMapOf<String, HtmlCompositeObject>()
+
+        searchPageMap.put("body", HtmlCompositeObject(BODY_STYLE_COLLAPSIBLE_BTN, BODY))
+        searchPageMap.put("engine", HtmlCompositeObject(ENGINE_COLLAPSIBLE_BTN, ENGN))
+        searchPageMap.put("fuel", HtmlCompositeObject(FUEL_COLLAPSIBLE_BTN, FUEL))
+        searchPageMap.put("model", HtmlCompositeObject(MODEL_COLLAPSIBLE_BTN, MODL))
+        searchPageMap.put("transmission", HtmlCompositeObject(TRANSMISSION_COLLAPSIBLE_BTN, TRANSMISSION_TYPE))
+        searchPageMap.put("damage", HtmlCompositeObject(DAMAGE_COLLAPSIBLE_BTN, DAMAGE))
+
+        return searchPageMap
+    }
+
 }

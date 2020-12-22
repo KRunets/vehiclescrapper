@@ -4,9 +4,13 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.BodyStyleType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
-import by.runets.vehiclescrapper.scrapper.copart.service.impl.*
+import by.runets.vehiclescrapper.persistence.service.lookup.VehicleService
+import by.runets.vehiclescrapper.scrapper.copart.service.impl.VehicleScrapService
+import by.runets.vehiclescrapper.scrapper.copart.service.impl.lookup.*
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -17,7 +21,13 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
                       @Autowired private val transmissionTypeScrapService: TransmissionTypeScrapService,
                       @Autowired private val bodyStyleTypeScrapService: BodyStyleTypeScrapService,
                       @Autowired private val engineTypeScrapService: EngineTypeScrapService,
-                      @Autowired private val modelLookupScrapService: ModelLookupScrapService) {
+                      @Autowired private val modelLookupScrapService: ModelLookupScrapService,
+                      @Autowired private val scrapVehicleService: VehicleScrapService) {
+
+    @GetMapping("setup")
+    suspend fun setup() {
+        //ToDO
+    }
 
     @GetMapping("/makes-popular")
     @LogExecutionTime
@@ -65,5 +75,11 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
     @LogExecutionTime
     suspend fun scrapEngineType() {
         engineTypeScrapService.scrapAndSaveVoid()
+    }
+
+    @LogExecutionTime
+    @GetMapping("/vehicles", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
+    suspend fun scrapVehicles(@RequestBody searchCriteria : Map<String, Any>) {
+        scrapVehicleService.scrapAndSaveByCriteria(searchCriteria)
     }
 }

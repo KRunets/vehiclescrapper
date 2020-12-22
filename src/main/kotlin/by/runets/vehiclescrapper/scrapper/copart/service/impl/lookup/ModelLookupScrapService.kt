@@ -1,22 +1,21 @@
-package by.runets.vehiclescrapper.scrapper.copart.service.impl
+package by.runets.vehiclescrapper.scrapper.copart.service.impl.lookup
 
 import by.runets.vehiclescrapper.configuration.properties.ScrapperProperties
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.ModelLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.ModelLookupService
-import by.runets.vehiclescrapper.scrapper.copart.provider.impl.ModelLookupScrapper
+import by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup.ModelLookupScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.service.impl.AbstractScrapService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onError
 import by.runets.vehiclescrapper.utils.coroutines.onNext
-import org.openqa.selenium.StaleElementReferenceException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import reactor.util.retry.Retry
 
 @Service
 class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLookupService,
-                              @Autowired private val modelLookupScrapper: ModelLookupScrapper,
+                              @Autowired private val modelLookupScrapper: ModelLookupScrapperProcessor,
                               @Autowired private val modelLookupService: ModelLookupService,
                               @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapService<ModelLookup>() {
 
@@ -38,7 +37,8 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
                                 "}")
                         modelLookupDataSet.addAll(data)
                     }
-                }.doOnError{error -> println("The error $error occurred") }
+                }
+                .doOnError{error -> println("The error $error occurred") }
                 .onError { modelLookupService.saveAll(modelLookupDataSet) }
                 .onNext { modelLookupService.saveAll(modelLookupDataSet) }
                 .retry(scrapperProperties.retryLimit)
