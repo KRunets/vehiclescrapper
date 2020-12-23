@@ -4,14 +4,5 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet id="11" author="k.runets">
-        <sql>
-            CRETATE TABLE criteria_tag (
-                id uuid primary key DEFAULT uuid_generate_v4 (),
-                data jsonb
-            );
-        </sql>
-    </changeSet>
-
 </databaseChangeLog>
 
