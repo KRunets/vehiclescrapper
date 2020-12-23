@@ -24,11 +24,6 @@ class ScrapController(@Autowired private val popularMakesScrapService: PopularMa
                       @Autowired private val modelLookupScrapService: ModelLookupScrapService,
                       @Autowired private val scrapVehicleService: VehicleScrapService) {
 
-    @GetMapping("setup")
-    suspend fun setup() {
-        //ToDO
-    }
-
     @GetMapping("/makes-popular")
     @LogExecutionTime
     suspend fun scrapPoplarMakes(): Set<MakeLookup> {
