@@ -8,6 +8,7 @@ import io.r2dbc.pool.PoolingConnectionFactoryProvider
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
+import org.apache.commons.lang3.StringUtils
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -22,6 +23,7 @@ import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
+import org.springframework.http.HttpHeaders
 import org.springframework.transaction.reactive.TransactionalOperator
 import java.time.Duration
 import java.util.*
@@ -89,6 +91,23 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         val chromeOptions = ChromeOptions()
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER)
         return ChromeDriver(chromeOptions)
+    }
+
+    @Bean
+    fun headers() : HttpHeaders {
+        val headers = HttpHeaders()
+        headers.add("User-Agent", " Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
+        headers.add("Accept", " application/json, text/javascript, */*; q=0.01")
+        headers.add("Accept-Language", " en-US,en;q=0.5")
+        headers.add("X-XSRF-TOKEN", " ada08cb7-0474-4876-868c-00b6cd16c454")
+        headers.add("X-Requested-With", " XMLHttpRequest")
+        headers.add("Origin", " https://www.copart.com")
+        headers.add("Connection", " keep-alive")
+        headers.add("TE", " Trailers")
+        //Need to replace to actual value
+        headers.add("Cookie", StringUtils.EMPTY)
+
+        return headers
     }
 
 }
