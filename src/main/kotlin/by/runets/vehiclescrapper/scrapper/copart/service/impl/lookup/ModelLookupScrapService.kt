@@ -29,7 +29,7 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
                 .map { makeLookup: MakeLookup ->
                     run {
                         searchCriteria[MakeLookup::javaClass.name] = makeLookup
-                        val data = modelLookupScrapper.scrapByCriteria(searchCriteria)
+                        val data = modelLookupScrapper.scrapAll(searchCriteria)
                         println("Make : ${makeLookup.type}")
                         println("Model {\n" +
                                 "Total count: : ${data.size}\n" +
@@ -50,7 +50,7 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
         val makeLookup = makeLookupService.findByType(make)
         val searchCriteria = mutableMapOf<String, Any>()
         searchCriteria[MakeLookup::javaClass.name] = makeLookup
-        val data = modelLookupScrapper.scrapByCriteria(searchCriteria)
+        val data = modelLookupScrapper.scrapAll(searchCriteria)
         modelLookupService.saveAll(data)
     }
 }

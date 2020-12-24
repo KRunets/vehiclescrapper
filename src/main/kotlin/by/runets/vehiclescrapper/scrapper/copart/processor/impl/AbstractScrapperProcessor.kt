@@ -7,7 +7,11 @@ abstract class AbstractScrapperProcessor<T> : IScrapperProcessor<T> {
         TODO("not implemented")
     }
 
-    override fun scrapByCriteria(criteria: Map<String, Any>?): Set<T> {
+    override suspend fun scrap(criteria: Map<String, Any>?): T? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun scrapAll(criteria: Map<String, Any>?): Set<T> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

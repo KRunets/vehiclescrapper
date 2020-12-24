@@ -24,7 +24,7 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
         makeLookupDataSet.map { makeLookup: MakeLookup ->
             run {
                 searchCriteria[MakeLookup::javaClass.name] = makeLookup
-                val data = fuelTypeScrapper.scrapByCriteria(searchCriteria)
+                val data = fuelTypeScrapper.scrapAll(searchCriteria)
                 fuelTypeDataSet.addAll(data)
             }
         }.onNext { fuelTypeService.saveAll(fuelTypeDataSet) }.subscribe()
@@ -34,7 +34,7 @@ class FuelTypeScrapService(@Autowired private val makeLookupService: MakeLookupS
         val makeLookup = makeLookupService.findByType(make)
         val searchCriteria = mutableMapOf<String, Any>()
         searchCriteria[MakeLookup::javaClass.name] = makeLookup
-        val data = fuelTypeScrapper.scrapByCriteria(searchCriteria)
+        val data = fuelTypeScrapper.scrapAll(searchCriteria)
         fuelTypeService.saveAll(data)
     }
 }

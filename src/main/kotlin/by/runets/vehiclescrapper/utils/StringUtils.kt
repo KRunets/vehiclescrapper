@@ -2,6 +2,7 @@ package by.runets.vehiclescrapper.utils
 
 class StringUtils {
     companion object {
+
         fun concat(string: String): String {
             val isContainsDash = string.contains("-")
             val isContainsPercentage = string.contains("%20")

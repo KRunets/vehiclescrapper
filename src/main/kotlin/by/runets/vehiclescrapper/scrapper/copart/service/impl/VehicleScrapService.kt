@@ -12,7 +12,7 @@ class VehicleScrapService(@Autowired private var vehicleService: VehicleService,
                           @Autowired private var vehicleScrapperProcessor: VehicleScrapperProcessor) : AbstractScrapService<Set<Vehicle>>() {
     @LogExecutionTime
     override suspend fun scrapAndSaveByCriteria(searchCriteria: Map<String, Any>) {
-        val vehicles = vehicleScrapperProcessor.scrapByCriteria(searchCriteria)
+        val vehicles = vehicleScrapperProcessor.scrapAll(searchCriteria)
         vehicleService.saveAll(vehicles)
     }
 }

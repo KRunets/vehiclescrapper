@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 class EngineTypeScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperProcessor<EngineType>() {
 
     @LogExecutionTime
-    override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<EngineType> {
+    override fun scrapAll(searchCriteria: Map<String, Any>?): Set<EngineType> {
         val engineTypeSet = mutableSetOf<EngineType>()
 
         val page = "https://www.copart.com/search/"

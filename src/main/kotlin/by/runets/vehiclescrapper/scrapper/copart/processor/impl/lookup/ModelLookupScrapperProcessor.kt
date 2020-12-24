@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class ModelLookupScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperProcessor<ModelLookup>() {
 
 
-    override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<ModelLookup> {
+    override fun scrapAll(searchCriteria: Map<String, Any>?): Set<ModelLookup> {
         val modelLookupSet = mutableSetOf<ModelLookup>()
 
         val page = "https://www.copart.com/search/"

@@ -30,7 +30,7 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
                 .map { makeLookup: MakeLookup ->
                     run {
                         searchCriteria[MakeLookup::javaClass.name] = makeLookup
-                        val data = engineTypeScrapper.scrapByCriteria(searchCriteria)
+                        val data = engineTypeScrapper.scrapAll(searchCriteria)
                         engineTypeDataSet.addAll(data)
                     }
                 }
@@ -47,7 +47,7 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
         val searchCriteria = mutableMapOf<String, Any>()
 
         searchCriteria[MakeLookup::javaClass.name] = makeLookup
-        val data = engineTypeScrapper.scrapByCriteria(searchCriteria)
+        val data = engineTypeScrapper.scrapAll(searchCriteria)
         engineTypeService.saveAll(data)
     }
 }

@@ -25,6 +25,7 @@ import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.http.HttpHeaders
 import org.springframework.transaction.reactive.TransactionalOperator
+import org.springframework.web.client.RestTemplate
 import java.time.Duration
 import java.util.*
 
@@ -99,6 +100,7 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         headers.add("User-Agent", " Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
         headers.add("Accept", " application/json, text/javascript, */*; q=0.01")
         headers.add("Accept-Language", " en-US,en;q=0.5")
+        headers.add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
         headers.add("X-XSRF-TOKEN", " ada08cb7-0474-4876-868c-00b6cd16c454")
         headers.add("X-Requested-With", " XMLHttpRequest")
         headers.add("Origin", " https://www.copart.com")
@@ -110,4 +112,10 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         return headers
     }
 
+    @Bean
+    fun restTemplate(): RestTemplate {
+        return RestTemplate()
+    }
+
 }
+

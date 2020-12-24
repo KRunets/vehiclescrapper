@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class VehicleScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperProcessor<Vehicle>() {
 
-    override fun scrapByCriteria(searchCriteria: Map<String, Any>?): Set<Vehicle> {
+    override fun scrapAll(searchCriteria: Map<String, Any>?): Set<Vehicle> {
         val vehicleSet = mutableSetOf<Vehicle>()
 
         val page = "https://www.copart.com/search/"
