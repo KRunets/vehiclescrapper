@@ -1,42 +1,86 @@
 package by.runets.vehiclescrapper.controller.copart.dto
 
-class VehicleDto(lotNumber: String,
-                 make: String,
-                 model: String,
-                 year: String,
-                 vin: String,
-                 estimatedRetailValue: String,
-                 odometer: String,
-                 engineType: String,
-                 cylindres: String,
-                 location: String,
-                 timeZone: String,
-                 at: String,
-                 aan: String,
-                 startingBid: String,
-                 ss: String,
-                 bndc: String,
-                 bnp: String,
-                 sbf: String,
-                 ts: String,
-                 stt: String,
-                 td: String,
-                 tgc: String,
-                 damageType: String,
-                 gr: String,
-                 dtc: String,
-                 al: String,
-                 adt: String,
-                 ynumb: String,
-                 phynumb: String,
-                 bf: String,
-                 transmissionType: String,
-                 lcc: String,
-                 lcd: String,
-                 fuelType: String,
-                 driveTrainType: String,
-                 saleStatus: String) {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class VehicleDto(
+        @JsonProperty("lotNumberStr")
+        val lotNumber: String?,
+        @JsonProperty("mkn")
+        val make: String?,
+        @JsonProperty("lm")
+        val model: String?,
+        @JsonProperty("lcy")
+        val year: String?,
+        @JsonProperty("fv")
+        val vin: String?,
+        @JsonProperty("la")
+        val estimatedRetailValue: String?,
+        @JsonProperty("orr")
+        val odometer: String?,
+        @JsonProperty("egn")
+        val engineType: String?,
+        @JsonProperty("cy")
+        val cylindres: String?,
+        @JsonProperty("yn")
+        val location: String?,
+        @JsonProperty("tz")
+        val timeZone: String?,
+        @JsonProperty("at")
+        val at: String?,
+        @JsonProperty("aan")
+        val aan: String?,
+        @JsonProperty("hb")
+        val startingBid: String?,
+        @JsonProperty("ss")
+        val ss: String?,
+        @JsonProperty("bndc")
+        val bndc: String?,
+        @JsonProperty("bnp")
+        val bnp: String?,
+        @JsonProperty("sbf")
+        val sbf: String?,
+        @JsonProperty("ts")
+        val ts: String?,
+        @JsonProperty("stt")
+        val stt: String?,
+        @JsonProperty("td")
+        val td: String?,
+        @JsonProperty("tgc")
+        val tgc: String?,
+        @JsonProperty("dd")
+        val damageType: String?,
+        @JsonProperty("gr")
+        val gr: String?,
+        @JsonProperty("dtc")
+        val dtc: String?,
+        @JsonProperty("al")
+        val al: String?,
+        @JsonProperty("adt")
+        val adt: String?,
+        @JsonProperty("ynumb")
+        val ynumb: String?,
+        @JsonProperty("phynumb")
+        val phynumb: String?,
+        @JsonProperty("bf")
+        val bf: String?,
+        @JsonProperty("tmtp")
+        val transmissionType: String?,
+        @JsonProperty("lcc")
+        val lcc: String?,
+        @JsonProperty("lcd")
+        val lcd: String?,
+        @JsonProperty("ft")
+        val fuelType: String?,
+        @JsonProperty("drv")
+        val driveTrainType: String?,
+        @JsonProperty("ess")
+        val saleStatus: String?) {
+
+}
+
+/*
     private val lotNumber: String = lotNumber
     private val make: String = make
     private val model: String = model
@@ -72,5 +116,4 @@ class VehicleDto(lotNumber: String,
     private val lcd: String = lcd
     private val fuelType: String = fuelType
     private val driveTrainType: String = driveTrainType
-    private val saleStatus: String = saleStatus
-}
+    private val saleStatus: String = saleStatus*/

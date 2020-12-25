@@ -1,4 +1,4 @@
-package by.runets.vehiclescrapper.controller.copart
+package by.runets.vehiclescrapper.controller.copart.api
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.BodyStyleType

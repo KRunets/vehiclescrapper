@@ -1,12 +1,12 @@
 package by.runets.vehiclescrapper.controller.copart.api
 
+import by.runets.vehiclescrapper.controller.copart.parser.impl.JsonToTotalElementsParser
+import by.runets.vehiclescrapper.controller.copart.parser.impl.JsonToVehicleDTOParser
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.FIRST_VEHICLE
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.LOTS_SEARCH
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.MAKE_KEY
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.SIZE_KEY
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -22,44 +22,40 @@ import org.springframework.web.client.RestTemplate
 @RequestMapping("/copart/api")
 class CopartApiController(@Autowired private val restTemplate: RestTemplate,
                           @Autowired private val headers: HttpHeaders,
-                          @Autowired private val objectMapper : ObjectMapper ) {
+                          @Autowired private val jsonToVehicleDtoMapper: JsonToVehicleDTOParser,
+                          @Autowired private val responseEntityToTotalElementsMapper: JsonToTotalElementsParser) {
 
     @PostMapping("/lots/search/all")
-    suspend fun searchAll(@RequestBody searchCriteria : Map<String, Any>) {
-        var payloadBody = HttpUtils.BODY
-                .replace(SIZE_KEY, FIRST_VEHICLE)
-                .replace(MAKE_KEY, (searchCriteria["make"] as String).toUpperCase())
-
-        val totalElementsResponseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST,
-                HttpEntity(payloadBody,  headers), String::class.java)
-
-        val jsonNode: JsonNode = objectMapper.readValue(totalElementsResponseEntity.body, JsonNode::class.java)
-        val totalElements = jsonNode.get("data").get("results").get("totalElements")
-
-        payloadBody = payloadBody.replace(SIZE_KEY, totalElements.toString())
-
-        val vehiclesResponseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST,
-                HttpEntity(payloadBody,  headers), String::class.java)
-
-        val rootJsonNode: JsonNode = objectMapper.readValue(vehiclesResponseEntity.body, JsonNode::class.java)
-        val vehiclesJsonNode = rootJsonNode.get("data").get("results").get("content")
-
-        val list = ArrayList<String>()
-        for (vjn in vehiclesJsonNode) {
-            list.add(vjn.toString())
-        }
-        println(list)
-
+    suspend fun searchAll(@RequestBody searchCriteria: Map<String, Any>) {
+        val totalElements = requestTotalElements(searchCriteria)
+        val vehiclesResponseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH,
+                HttpMethod.POST,
+                HttpEntity(HttpUtils.BODY
+                        .replace(MAKE_KEY, (searchCriteria["make"] as String).toUpperCase())
+                        .replace(SIZE_KEY, totalElements), headers),
+                String::class.java)
+        val vehicles = jsonToVehicleDtoMapper.parse(vehiclesResponseEntity)
     }
 
     @PostMapping("/lots/search")
-    suspend fun search(@RequestBody searchCriteria : Map<String, Any>) {
+    suspend fun search(@RequestBody searchCriteria: Map<String, Any>) {
         val requestEntity = HttpEntity(
                 HttpUtils.BODY
                         .replace(MAKE_KEY, (searchCriteria["make"] as String).toUpperCase())
                         .replace(SIZE_KEY, searchCriteria["size"] as String),
                 headers)
         val responseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST, requestEntity, String::class.java)
+        val vehicles = jsonToVehicleDtoMapper.parse(responseEntity)
+    }
 
+    private fun requestTotalElements(searchCriteria: Map<String, Any>): String {
+        val payloadBody = HttpUtils.BODY
+                .replace(SIZE_KEY, FIRST_VEHICLE)
+                .replace(MAKE_KEY, (searchCriteria["make"] as String).toUpperCase())
+
+        val totalElementsResponseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST,
+                HttpEntity(payloadBody, headers), String::class.java)
+
+        return responseEntityToTotalElementsMapper.parse(totalElementsResponseEntity)
     }
 }
