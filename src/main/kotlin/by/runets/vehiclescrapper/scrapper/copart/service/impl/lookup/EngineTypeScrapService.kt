@@ -5,7 +5,7 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.EngineType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.EngineTypeTypeService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
-import by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup.EngineTypeScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup.EngineTypeScrapperExecutor
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.AbstractScrapService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onError
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLookupService,
                              @Autowired private val engineTypeService: EngineTypeTypeService,
                              @Autowired private val scrapperProperties: ScrapperProperties,
-                             @Autowired private val engineTypeScrapper: EngineTypeScrapperProcessor) : AbstractScrapService<EngineType>() {
+                             @Autowired private val engineTypeScrapper: EngineTypeScrapperExecutor) : AbstractScrapService<EngineType>() {
 
     @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {

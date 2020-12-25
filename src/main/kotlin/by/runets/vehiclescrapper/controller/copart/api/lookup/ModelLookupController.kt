@@ -1,4 +1,4 @@
-package by.runets.vehiclescrapper.controller.copart.lookup
+package by.runets.vehiclescrapper.controller.copart.api.lookup
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.ModelLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.ModelLookupService

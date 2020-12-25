@@ -1,9 +1,9 @@
-package by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup
+package by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup
 
 import by.runets.vehiclescrapper.configuration.properties.ScrapperProperties
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.ModelLookup
-import by.runets.vehiclescrapper.scrapper.copart.processor.impl.AbstractScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.executor.impl.AbstractScrapperExecutor
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils
 import org.openqa.selenium.By
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ModelLookupScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperProcessor<ModelLookup>() {
+class ModelLookupScrapperExecutor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperExecutor<ModelLookup>() {
 
 
     override fun scrapAll(searchCriteria: Map<String, Any>?): Set<ModelLookup> {

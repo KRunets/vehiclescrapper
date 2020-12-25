@@ -2,6 +2,7 @@ package by.runets.vehiclescrapper.configuration
 
 import by.runets.vehiclescrapper.configuration.properties.DatabaseProperties
 import by.runets.vehiclescrapper.utils.UUIDConverter
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
 import io.r2dbc.pool.PoolingConnectionFactoryProvider
@@ -106,7 +107,6 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         headers.add("Origin", " https://www.copart.com")
         headers.add("Connection", " keep-alive")
         headers.add("TE", " Trailers")
-        //Need to replace to actual value
         headers.add("Cookie", StringUtils.EMPTY)
 
         return headers
@@ -115,6 +115,11 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
     @Bean
     fun restTemplate(): RestTemplate {
         return RestTemplate()
+    }
+
+    @Bean
+    fun objectMapper() : ObjectMapper {
+        return ObjectMapper()
     }
 
 }

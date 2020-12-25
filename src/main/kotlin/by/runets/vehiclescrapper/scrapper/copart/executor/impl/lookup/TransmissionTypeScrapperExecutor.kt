@@ -1,7 +1,7 @@
-package by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup
+package by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
-import by.runets.vehiclescrapper.scrapper.copart.processor.impl.AbstractScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.executor.impl.AbstractScrapperExecutor
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.waitBy
 import org.openqa.selenium.By
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class TransmissionTypeScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperProcessor<Set<TransmissionType>>() {
+class TransmissionTypeScrapperExecutor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperExecutor<Set<TransmissionType>>() {
 
     override suspend fun scrap(): Set<TransmissionType> {
         val set = mutableSetOf<TransmissionType>()

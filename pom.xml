@@ -25,6 +25,7 @@
 		<docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
 		<testcontainers.version>1.14.3</testcontainers.version>
 		<postgres.rdbc.version>0.8.5.RELEASE</postgres.rdbc.version>
+		<maven.war.plugin.version>2.4</maven.war.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -231,7 +232,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
+				<version>${maven.war.plugin.version}</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>

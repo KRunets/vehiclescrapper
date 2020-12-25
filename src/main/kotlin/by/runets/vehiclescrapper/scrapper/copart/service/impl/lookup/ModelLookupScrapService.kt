@@ -5,7 +5,7 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.ModelLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.ModelLookupService
-import by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup.ModelLookupScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup.ModelLookupScrapperExecutor
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.AbstractScrapService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onError
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLookupService,
-                              @Autowired private val modelLookupScrapper: ModelLookupScrapperProcessor,
+                              @Autowired private val modelLookupScrapper: ModelLookupScrapperExecutor,
                               @Autowired private val modelLookupService: ModelLookupService,
                               @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapService<ModelLookup>() {
 

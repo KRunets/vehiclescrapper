@@ -2,14 +2,14 @@ package by.runets.vehiclescrapper.scrapper.copart.service.impl.lookup
 
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.service.lookup.vehicle.MakeLookupService
-import by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup.PopularMakesScrapperProcessor
+import by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup.PopularMakesScrapperExecutor
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.AbstractScrapService
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class PopularMakesScrapService(@Autowired private val makesScrapper: PopularMakesScrapperProcessor,
+class PopularMakesScrapService(@Autowired private val makesScrapper: PopularMakesScrapperExecutor,
                                @Autowired private val makeLookupService: MakeLookupService) :
         AbstractScrapService<Set<MakeLookup>>() {
 

@@ -4,12 +4,10 @@ import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.BodyStyleType
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.MakeLookup
 import by.runets.vehiclescrapper.persistence.domain.lookup.vehicle.TransmissionType
-import by.runets.vehiclescrapper.persistence.service.lookup.VehicleService
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.VehicleScrapService
 import by.runets.vehiclescrapper.scrapper.copart.service.impl.lookup.*
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.web.bind.annotation.*
 

@@ -1,14 +1,13 @@
-package by.runets.vehiclescrapper.scrapper.copart.processor.impl
+package by.runets.vehiclescrapper.scrapper.copart.executor.impl
 
 import by.runets.vehiclescrapper.persistence.domain.Vehicle
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils
-import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class VehicleScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperProcessor<Vehicle>() {
+class VehicleScrapperExecutor(@Autowired private val chromeDriver: ChromeDriver) : AbstractScrapperExecutor<Vehicle>() {
 
     override fun scrapAll(searchCriteria: Map<String, Any>?): Set<Vehicle> {
         val vehicleSet = mutableSetOf<Vehicle>()
