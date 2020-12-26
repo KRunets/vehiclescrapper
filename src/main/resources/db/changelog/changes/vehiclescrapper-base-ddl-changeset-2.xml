@@ -16,18 +16,6 @@
         </sql>
     </changeSet>
 
-    <!--     id uuid primary key DEFAULT uuid_generate_v4 (),
-            model uuid,
-            odometer text,
-            sale_date date,
-            seller_id UUID,
-            vin text,
-            lot_number text,
-            other_info_id UUID,
-            key_amount integer,
-            series text,
-            start_date date-->
-
     <changeSet id="drop-vehicles-columns-1" author="k.runets">
         <sql>
             ALTER TABLE vehicle DROP column seller_id;
@@ -129,5 +117,69 @@
             ALTER TABLE vehicle add column fuel_type text;
         </sql>
     </changeSet>
+
+
+    <changeSet id="loaddata-carscrapper_public_body_style_type" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_body_style_type.csv"
+                  separator=","
+                  tableName="body_style_type">
+            <column name="id" type="uuid" />
+            <column name="type" type="string" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="loaddata-carscrapper_public_damage_type" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_damage_type.csv"
+                  separator=","
+                  tableName="damage_type">
+            <column name="id" type="uuid" />
+            <column name="type" type="string" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="loaddata-carscrapper_public_make_lookup" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_make_lookup.csv"
+                  separator=","
+                  tableName="make_lookup">
+            <column name="id" type="uuid" />
+            <column name="type" type="string" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="loaddata-carscrapper_public_model_lookup" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_model_lookup.csv"
+                  separator=","
+                  tableName="model_lookup">
+            <column name="id" type="uuid" />
+            <column name="make" type="uuid" />
+            <column name="model" type="string" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="loaddata-carscrapper_public_tt_lookup" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_transmission_type.csv"
+                  separator=","
+                  tableName="transmission_type">
+            <column name="id" type="uuid" />
+            <column name="type" type="string" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="loaddata-carscrapper_public_ft_lookup" author="k.runets">
+        <loadData encoding="UTF-8"
+                  file="db\dump\d2\carscrapper_public_fuel_type.csv"
+                  separator=","
+                  tableName="fuel_type">
+            <column name="id" type="uuid" />
+            <column name="type" type="string" />
+            <column name="make_lookup_id" type="uuid" />
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>
 
