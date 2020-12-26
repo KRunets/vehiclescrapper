@@ -1,7 +1,7 @@
-package by.runets.vehiclescrapper.controller.copart.parser.impl
+package by.runets.vehiclescrapper.controller.copart.data.parser.impl
 
 import by.runets.vehiclescrapper.controller.copart.dto.VehicleDto
-import by.runets.vehiclescrapper.controller.copart.parser.IParser
+import by.runets.vehiclescrapper.controller.copart.data.parser.IParser
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper

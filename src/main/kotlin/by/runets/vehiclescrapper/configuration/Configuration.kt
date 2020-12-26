@@ -10,6 +10,7 @@ import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
 import org.apache.commons.lang3.StringUtils
+import org.modelmapper.ModelMapper
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -120,6 +121,11 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
     @Bean
     fun objectMapper() : ObjectMapper {
         return ObjectMapper()
+    }
+
+    @Bean
+    fun modelMapper() : ModelMapper {
+        return ModelMapper()
     }
 
 }

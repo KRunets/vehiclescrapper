@@ -4,5 +4,130 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
+    <changeSet id="drop-vehicles-constraints" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle DROP CONSTRAINT fk_vehicle_model;
+        </sql>
+    </changeSet>
+
+    <changeSet id="drop-vehicles-constraints-1" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle DROP CONSTRAINT fk_vehicle_seller;
+        </sql>
+    </changeSet>
+
+    <!--     id uuid primary key DEFAULT uuid_generate_v4 (),
+            model uuid,
+            odometer text,
+            sale_date date,
+            seller_id UUID,
+            vin text,
+            lot_number text,
+            other_info_id UUID,
+            key_amount integer,
+            series text,
+            start_date date-->
+
+    <changeSet id="drop-vehicles-columns-1" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle DROP column seller_id;
+            ALTER TABLE vehicle DROP column series;
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="drop-vehicles-columns-2" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle DROP column model;
+        </sql>
+    </changeSet>
+
+    <changeSet id="drop-vehicles-columns-3" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle DROP column key_amount;
+        </sql>
+    </changeSet>
+
+    <changeSet id="add-vehicles-columns-1" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle add column make text;
+            ALTER TABLE vehicle add column model text;
+            ALTER TABLE vehicle add column year text;
+            ALTER TABLE vehicle add column estimatedRetailValue text;
+            ALTER TABLE vehicle add column engineType text;
+            ALTER TABLE vehicle add column cylindres text;
+            ALTER TABLE vehicle add column location text;
+            ALTER TABLE vehicle add column timeZone text;
+            ALTER TABLE vehicle add column at text;
+            ALTER TABLE vehicle add column aan text;
+            ALTER TABLE vehicle add column startingBid text;
+            ALTER TABLE vehicle add column ss text;
+            ALTER TABLE vehicle add column bndc text;
+            ALTER TABLE vehicle add column bnp text;
+            ALTER TABLE vehicle add column sbf text;
+            ALTER TABLE vehicle add column ts text;
+            ALTER TABLE vehicle add column stt text;
+            ALTER TABLE vehicle add column td text;
+            ALTER TABLE vehicle add column tgc text;
+            ALTER TABLE vehicle add column damageType text;
+            ALTER TABLE vehicle add column gr text;
+            ALTER TABLE vehicle add column dtc text;
+            ALTER TABLE vehicle add column al text;
+            ALTER TABLE vehicle add column adt text;
+            ALTER TABLE vehicle add column ynumb text;
+            ALTER TABLE vehicle add column phynumb text;
+            ALTER TABLE vehicle add column bf text;
+            ALTER TABLE vehicle add column transmissionType text;
+            ALTER TABLE vehicle add column lcc text;
+            ALTER TABLE vehicle add column lcd text;
+            ALTER TABLE vehicle add column fuelType text;
+            ALTER TABLE vehicle add column driveTrainType text;
+            ALTER TABLE vehicle add column saleStatus text;
+        </sql>
+    </changeSet>
+
+    <changeSet id="drop-vehicles-columns-4" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle drop column transmissionType;
+            ALTER TABLE vehicle drop column driveTrainType;
+            ALTER TABLE vehicle drop column estimatedRetailValue;
+            ALTER TABLE vehicle drop column engineType;
+            ALTER TABLE vehicle drop column saleStatus;
+        </sql>
+    </changeSet>
+
+    <changeSet id="add-vehicles-columns-2" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle add column transmission_type text;
+            ALTER TABLE vehicle add column drive_train_type text;
+            ALTER TABLE vehicle add column estimated_retail_value text;
+            ALTER TABLE vehicle add column engine_type text;
+            ALTER TABLE vehicle add column sale_status text;
+        </sql>
+    </changeSet>
+    <changeSet id="drop-vehicles-columns-5" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle drop column timeZone;
+            ALTER TABLE vehicle drop column startingBid;
+            ALTER TABLE vehicle drop column damageType;
+            ALTER TABLE vehicle drop column fuelType;
+        </sql>
+    </changeSet>
+
+    <changeSet id="add-vehicles-columns-3" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle add column time_zone text;
+            ALTER TABLE vehicle add column starting_bid text;
+            ALTER TABLE vehicle add column damage_type text;
+            ALTER TABLE vehicle add column fuelType text;
+        </sql>
+    </changeSet>
+
+    <changeSet id="drop-vehicles-columns-6" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle drop column fuelType;
+            ALTER TABLE vehicle add column fuel_type text;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
 
