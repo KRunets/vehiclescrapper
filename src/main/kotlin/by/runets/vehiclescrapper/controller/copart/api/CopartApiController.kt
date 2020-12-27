@@ -49,7 +49,7 @@ class CopartApiController(@Autowired private val restTemplate: RestTemplate,
     @GetMapping("/lot/{lotNumber}")
     suspend fun loadVehicleByLotNumber(@PathVariable lotNumber : String) : Mono<ResponseEntity.BodyBuilder>  {
         val vehicle = requestLotByLotNumber(lotNumber)
-        vehicleService.save(vehicle)
+        vehicleService.updateVehicleDynamicDetails(vehicle)
         return Mono.just(ResponseEntity.ok())
     }
 

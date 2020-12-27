@@ -20,20 +20,19 @@ class VehicleService(@Autowired private var vehicleRepository: VehicleRepository
         return transactionalOperator.transactional(vehicleRepository.findVehicleByLotNumber(lotNumber))
     }
 
-    override suspend fun save(entity: Vehicle): Vehicle? {
+    override suspend fun updateVehicleDynamicDetails(entity: Vehicle): Vehicle? {
         val vehicle = findVehicleByLotNumber(entity.lotNumber).awaitFirst()
-
         if (vehicle != null) {
             vehicle.lotSold = entity.lotSold
-            vehicle.startingBid = entity.startingBid
             vehicle.currentBid = entity.currentBid
+            vehicle.startingBid = entity.startingBid
             vehicle.location = entity.location
             vehicle.odometer = entity.odometer
             vehicle.saleDate = entity.saleDate
             vehicle.saleStatus = entity.saleStatus
             vehicle.estimatedRetailValue = entity.estimatedRetailValue
         }
-
         return super.save(vehicle)
+
     }
 }
