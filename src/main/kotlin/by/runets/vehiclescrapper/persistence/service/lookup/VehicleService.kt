@@ -24,6 +24,7 @@ class VehicleService(@Autowired private var vehicleRepository: VehicleRepository
         val vehicle = findVehicleByLotNumber(entity.lotNumber).awaitFirst()
 
         if (vehicle != null) {
+            vehicle.lotSold = entity.lotSold
             vehicle.startingBid = entity.startingBid
             vehicle.location = entity.location
             vehicle.odometer = entity.odometer

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class VehicleDto(
+        @JsonProperty("lotSold")
+        val lotSold : Boolean?,
         @JsonProperty("lotNumberStr")
         val lotNumber: String?,
         @JsonProperty("mkn")

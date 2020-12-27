@@ -1,13 +1,13 @@
 package by.runets.vehiclescrapper.persistence.domain
 
 import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 import java.util.*
 
 @Table("vehicle")
 class Vehicle(
+        lotSold: Boolean?,
         make: String?,
         model: String?,
         odometer: Int?,
@@ -46,6 +46,7 @@ class Vehicle(
         driveTrainType: String?,
         saleStatus: String?) {
     @Id
+    var lotSold : Boolean? = lotSold
     var id: UUID? = null
     val make: String? = make
     val model: String? = model

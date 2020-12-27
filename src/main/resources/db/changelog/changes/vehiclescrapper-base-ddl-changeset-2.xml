@@ -181,5 +181,11 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="add_lotSold-column" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle add lotSold boolean;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 

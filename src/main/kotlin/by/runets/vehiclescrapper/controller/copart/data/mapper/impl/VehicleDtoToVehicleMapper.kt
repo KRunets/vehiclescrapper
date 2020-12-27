@@ -26,6 +26,7 @@ class VehicleDtoToVehicleMapper: IMapper<VehicleDto, Vehicle> {
 
     fun toVehicle(dto: VehicleDto): Vehicle {
         return Vehicle(
+                dto.lotSold,
                 dto.make,
                 dto.model,
                 Integer.valueOf(dto.odometer?.split(".")?.get(0)),
