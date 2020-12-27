@@ -183,9 +183,16 @@
 
     <changeSet id="add_lotSold-column" author="k.runets">
         <sql>
-            ALTER TABLE vehicle add lotSold boolean;
+            ALTER TABLE vehicle add lot_sold boolean;
         </sql>
     </changeSet>
+
+    <changeSet id="add_currentbid-column" author="k.runets">
+        <sql>
+            ALTER TABLE vehicle add column current_bid text;
+        </sql>
+    </changeSet>
+
 
 </databaseChangeLog>
 

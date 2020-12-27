@@ -42,6 +42,7 @@ class VehicleDtoToVehicleMapper: IMapper<VehicleDto, Vehicle> {
                 dto.at,
                 dto.aan,
                 dto.startingBid,
+                dto.currentBid,
                 dto.ss,
                 dto.bndc,
                 dto.bnp,

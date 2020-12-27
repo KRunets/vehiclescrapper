@@ -23,6 +23,7 @@ class Vehicle(
         at: String?,
         aan: String?,
         startingBid: String?,
+        currentBid: String?,
         ss: String?,
         bndc: String?,
         bnp: String?,
@@ -46,8 +47,8 @@ class Vehicle(
         driveTrainType: String?,
         saleStatus: String?) {
     @Id
-    var lotSold : Boolean? = lotSold
     var id: UUID? = null
+    var lotSold : Boolean? = lotSold
     val make: String? = make
     val model: String? = model
     var odometer: Int? = odometer
@@ -63,6 +64,7 @@ class Vehicle(
     var at: String? = at
     val aan: String? = aan
     var startingBid: String? = startingBid
+    var currentBid: String? = currentBid
     val ss: String? = ss
     val bndc: String? = bndc
     val bnp: String? = bnp

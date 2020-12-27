@@ -26,6 +26,7 @@ class VehicleService(@Autowired private var vehicleRepository: VehicleRepository
         if (vehicle != null) {
             vehicle.lotSold = entity.lotSold
             vehicle.startingBid = entity.startingBid
+            vehicle.currentBid = entity.currentBid
             vehicle.location = entity.location
             vehicle.odometer = entity.odometer
             vehicle.saleDate = entity.saleDate

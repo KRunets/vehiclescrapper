@@ -59,7 +59,6 @@ class CopartApiController(@Autowired private val restTemplate: RestTemplate,
                         .replace(MAKE_KEY, make.toUpperCase())
                         .replace(SIZE_KEY, limit), headers),
                 String::class.java)
-
         val jsonToVehicleDtoParser = jsonParsers[JsonToVehicleDTOParser::class.java.simpleName] as JsonToVehicleDTOParser
         val vehicleDtos = jsonToVehicleDtoParser.parse(vehiclesResponseEntity)
         return vehicleDtoToVehicleMapper.mapAll(vehicleDtos)

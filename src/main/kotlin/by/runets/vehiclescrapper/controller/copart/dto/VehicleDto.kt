@@ -80,4 +80,6 @@ data class VehicleDto(
         @JsonProperty("drv")
         val driveTrainType: String?,
         @JsonProperty("ess")
-        val saleStatus: String?)
+        val saleStatus: String?,
+        @JsonProperty("currentBid")
+        var currentBid : String?)
