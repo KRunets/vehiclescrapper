@@ -9,17 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 
-class JsonToVehicleDTOParser(private val objectMapper : ObjectMapper) : IParser<ResponseEntity<String>, Set<VehicleDto>> {
-    override fun parse(vehiclesResponseEntity: ResponseEntity<String>): Set<VehicleDto> {
+class JsonLotToVehicleDTOParser(private val objectMapper : ObjectMapper) : IParser<ResponseEntity<String>, VehicleDto> {
+    override fun parse(vehiclesResponseEntity: ResponseEntity<String>): VehicleDto {
         val rootJsonNode: JsonNode = objectMapper.readValue(vehiclesResponseEntity.body, JsonNode::class.java)
-        val vehiclesJsonNode = rootJsonNode.get("data").get("results").get("content")
-        val vehicles = HashSet<VehicleDto>()
-        vehiclesJsonNode.forEach{ vjn ->
-            run {
-                val value = objectMapper.readValue(vjn.toString(), object : TypeReference<VehicleDto>() {})
-                vehicles.add(value)
-            }
-        }
-        return vehicles
+        val vehiclesJsonNode = rootJsonNode.get("data").get("lotDetails")
+        return objectMapper.readValue(vehiclesJsonNode.toString(), object : TypeReference<VehicleDto>() {})
     }
 }

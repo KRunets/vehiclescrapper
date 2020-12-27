@@ -1,6 +1,9 @@
 package by.runets.vehiclescrapper.configuration
 
 import by.runets.vehiclescrapper.configuration.properties.DatabaseProperties
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonLotToVehicleDTOParser
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonToTotalElementsParser
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonToVehicleDTOParser
 import by.runets.vehiclescrapper.utils.UUIDConverter
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.r2dbc.pool.ConnectionPool
@@ -14,6 +17,7 @@ import org.modelmapper.ModelMapper
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
@@ -30,6 +34,7 @@ import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.web.client.RestTemplate
 import java.time.Duration
 import java.util.*
+import kotlin.collections.HashMap
 
 
 @Configuration
@@ -126,6 +131,33 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
     @Bean
     fun modelMapper() : ModelMapper {
         return ModelMapper()
+    }
+
+
+    @Bean
+    fun jsonToVehicleDtoParser() : JsonToVehicleDTOParser {
+        return JsonToVehicleDTOParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonToTotalElementsParser() : JsonToTotalElementsParser {
+        return JsonToTotalElementsParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonLotToVehicleDTOParser() : JsonLotToVehicleDTOParser {
+        return JsonLotToVehicleDTOParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonParsers() : Map<String, Any> {
+        val map = HashMap<String, Any>()
+
+        map[JsonToVehicleDTOParser::class.java.simpleName] = this.jsonToVehicleDtoParser()
+        map[JsonToTotalElementsParser::class.java.simpleName] = this.jsonToTotalElementsParser()
+        map[JsonLotToVehicleDTOParser::class.java.simpleName] = this.jsonLotToVehicleDTOParser()
+
+        return map
     }
 
 }

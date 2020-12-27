@@ -3,7 +3,8 @@ package by.runets.vehiclescrapper.controller.copart.data.mapper.impl
 import by.runets.vehiclescrapper.controller.copart.data.mapper.IMapper
 import by.runets.vehiclescrapper.controller.copart.dto.VehicleDto
 import by.runets.vehiclescrapper.persistence.domain.Vehicle
-import org.modelmapper.ModelMapper
+import by.runets.vehiclescrapper.persistence.service.lookup.VehicleService
+import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.time.Instant
@@ -12,11 +13,15 @@ import java.time.ZoneId
 import java.util.stream.Collectors
 
 @Component
-class VehicleDtoToVehicleMapper(@Autowired private val modelMapper: ModelMapper) : IMapper<Set<VehicleDto>, Set<Vehicle>> {
-    override fun map(dtos: Set<VehicleDto>): Set<Vehicle> {
+class VehicleDtoToVehicleMapper: IMapper<VehicleDto, Vehicle> {
+    override fun mapAll(dtos: Set<VehicleDto>): Set<Vehicle> {
         return dtos.stream()
                 .map { dto -> toVehicle(dto) }
                 .collect(Collectors.toSet())
+    }
+
+    override fun map(s: VehicleDto): Vehicle {
+        return toVehicle(s)
     }
 
     fun toVehicle(dto: VehicleDto): Vehicle {
@@ -61,7 +66,7 @@ class VehicleDtoToVehicleMapper(@Autowired private val modelMapper: ModelMapper)
         )
     }
 
-    private fun extractSaleDate(dto: VehicleDto) : LocalDateTime? {
+    private fun extractSaleDate(dto: VehicleDto): LocalDateTime? {
         if (dto.ad == null) {
             return null
         }
