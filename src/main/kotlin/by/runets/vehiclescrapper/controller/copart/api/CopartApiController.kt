@@ -13,19 +13,18 @@ import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.LOT_N
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.LOT_SEARCH
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.MAKE_KEY
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.SIZE_KEY
-import org.apache.commons.lang3.StringUtils
+import kotlinx.coroutines.reactive.awaitLast
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.BodyInserters
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.awaitExchange
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/copart/api")
-class CopartApiController(@Autowired private val restTemplate: RestTemplate,
+@RequestMapping("/copart/api/v2")
+class CopartApiController(@Autowired private val webClient: WebClient,
                           @Autowired private val headers: HttpHeaders,
                           @Autowired private val vehicleService: VehicleService,
                           @Autowired private val jsonParsers : Map<String, Any>,
@@ -49,38 +48,52 @@ class CopartApiController(@Autowired private val restTemplate: RestTemplate,
     @GetMapping("/lot/{lotNumber}")
     suspend fun loadVehicleByLotNumber(@PathVariable lotNumber : String) : Mono<ResponseEntity.BodyBuilder>  {
         val vehicle = requestLotByLotNumber(lotNumber)
-        vehicleService.updateVehicleDynamicDetails(vehicle)
+        vehicleService.save(vehicle)
         return Mono.just(ResponseEntity.ok())
     }
 
-    private fun requestVehiclesByMake(make: String, limit : String) : Set<Vehicle> {
-        val vehiclesResponseEntity = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST,
-                HttpEntity(HttpUtils.BODY
+    private suspend fun requestVehiclesByMake(make: String, limit : String) : Set<Vehicle> {
+        val vehiclesResponseEntity = webClient
+                .post()
+                .uri(LOTS_SEARCH)
+                .body(BodyInserters.fromValue(HttpUtils.BODY
                         .replace(MAKE_KEY, make.toUpperCase())
-                        .replace(SIZE_KEY, limit), headers),
-                String::class.java)
+                        .replace(SIZE_KEY, limit)))
+                .headers { headers }
+                .accept(MediaType.APPLICATION_JSON)
+                .awaitExchange()
+                .toEntity(String::class.java)
+                .awaitLast()
         val jsonToVehicleDtoParser = jsonParsers[JsonToVehicleDTOParser::class.java.simpleName] as JsonToVehicleDTOParser
         val vehicleDtos = jsonToVehicleDtoParser.parse(vehiclesResponseEntity)
         return vehicleDtoToVehicleMapper.mapAll(vehicleDtos)
     }
 
-    private fun requestLotByLotNumber(lotNumber : String) : Vehicle {
-        val responseEntity: ResponseEntity<String> = restTemplate.exchange(LOT_SEARCH.replace(LOT_NUMBER, lotNumber),
-                HttpMethod.GET,
-                HttpEntity(StringUtils.EMPTY, headers),
-                String::class.java)
+    private suspend fun requestLotByLotNumber(lotNumber : String) : Vehicle {
+        val responseEntity = webClient
+                .get()
+                .uri(LOT_SEARCH.replace(LOT_NUMBER, lotNumber))
+                .headers { h -> run { h.addAll(headers) } }
+                .awaitExchange()
+                .toEntity(String::class.java)
+                .awaitLast()
         val jsonLotToVehicleDTOParser = jsonParsers[JsonLotToVehicleDTOParser::class.java.simpleName] as JsonLotToVehicleDTOParser
         val vehicleDto = jsonLotToVehicleDTOParser.parse(responseEntity)
         return vehicleDtoToVehicleMapper.map(vehicleDto)
     }
 
-    private fun requestTotalElements(make : String): String {
-        val payloadBody = HttpUtils.BODY
-                .replace(SIZE_KEY, FIRST_VEHICLE)
-                .replace(MAKE_KEY, make.toUpperCase())
-
-        val totalElementsResponseEntity: ResponseEntity<String> = restTemplate.exchange(LOTS_SEARCH, HttpMethod.POST,
-                HttpEntity(payloadBody, headers), String::class.java)
+    private suspend fun requestTotalElements(make : String): String {
+        val totalElementsResponseEntity = webClient
+                .post()
+                .uri(LOTS_SEARCH)
+                .body(BodyInserters.fromValue(HttpUtils.BODY
+                        .replace(SIZE_KEY, FIRST_VEHICLE)
+                        .replace(MAKE_KEY, make.toUpperCase())))
+                .headers { headers }
+                .accept(MediaType.APPLICATION_JSON)
+                .awaitExchange()
+                .toEntity(String::class.java)
+                .awaitLast()
 
         val responseEntityToTotalElementsParser = jsonParsers[JsonToTotalElementsParser::class.java.simpleName] as JsonToTotalElementsParser
         return responseEntityToTotalElementsParser.parse(totalElementsResponseEntity)

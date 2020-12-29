@@ -1,4 +1,4 @@
-package by.runets.vehiclescrapper.scrapper.copart.service
+package by.runets.vehiclescrapper.scrapper.copart.service.scrapper
 
 
 interface IScrapService<T> {

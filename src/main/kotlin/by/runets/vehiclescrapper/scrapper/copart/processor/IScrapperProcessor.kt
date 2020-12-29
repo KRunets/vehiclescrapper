@@ -1,6 +1,6 @@
-package by.runets.vehiclescrapper.scrapper.copart.executor
+package by.runets.vehiclescrapper.scrapper.copart.processor
 
-interface IScrapperExecutor<T> {
+interface IScrapperProcessor<T> {
     suspend fun scrap(): T?
 
     suspend fun scrap(criteria: Map<String, Any>?): T?

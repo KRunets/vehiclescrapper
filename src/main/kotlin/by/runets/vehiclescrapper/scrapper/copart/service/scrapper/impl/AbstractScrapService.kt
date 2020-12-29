@@ -1,6 +1,6 @@
-package by.runets.vehiclescrapper.scrapper.copart.service.impl
+package by.runets.vehiclescrapper.scrapper.copart.service.scrapper.impl
 
-import by.runets.vehiclescrapper.scrapper.copart.service.IScrapService
+import by.runets.vehiclescrapper.scrapper.copart.service.scrapper.IScrapService
 
 abstract class AbstractScrapService<T> : IScrapService<T> {
     override suspend fun scrapAndSave(): T {

@@ -1,8 +1,8 @@
-package by.runets.vehiclescrapper.scrapper.copart.executor.impl.lookup
+package by.runets.vehiclescrapper.scrapper.copart.processor.impl.lookup
 
 import by.runets.vehiclescrapper.configuration.properties.ScrapperProperties
 import by.runets.vehiclescrapper.persistence.domain.lookup.DamageType
-import by.runets.vehiclescrapper.scrapper.copart.executor.impl.AbstractScrapperExecutor
+import by.runets.vehiclescrapper.scrapper.copart.processor.impl.AbstractScrapperProcessor
 import by.runets.vehiclescrapper.scrapper.copart.utils.HtmlTagUtils
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.clickBy
 import by.runets.vehiclescrapper.scrapper.copart.utils.ScrapperUtils.Companion.scrollElement
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class DamageTypeScrapperExecutor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperExecutor<Set<DamageType>>() {
+class DamageTypeScrapperProcessor(@Autowired private val chromeDriver: ChromeDriver, @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapperProcessor<Set<DamageType>>() {
     override suspend fun scrap(): Set<DamageType>? {
         val damageTypeSet = mutableSetOf<DamageType>()
 

@@ -17,7 +17,6 @@ import org.modelmapper.ModelMapper
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
@@ -30,14 +29,17 @@ import org.springframework.data.r2dbc.core.R2dbcEntityOperations
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 import org.springframework.http.HttpHeaders
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.transaction.reactive.TransactionalOperator
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.client.WebClient
 import java.time.Duration
 import java.util.*
 import kotlin.collections.HashMap
 
 
 @Configuration
+@EnableScheduling
 @EnableAspectJAutoProxy
 @EnableR2dbcRepositories("by.runets.vehiclescrapper")
 class Configuration(private val databaseProperties: DatabaseProperties) : AbstractR2dbcConfiguration() {
@@ -119,9 +121,10 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
     }
 
     @Bean
-    fun restTemplate(): RestTemplate {
-        return RestTemplate()
+    fun webClient() : WebClient {
+        return WebClient.builder().build()
     }
+
 
     @Bean
     fun objectMapper() : ObjectMapper {
