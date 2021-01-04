@@ -10,6 +10,7 @@ import by.runets.vehiclescrapper.scrapper.copart.service.scrapper.impl.AbstractS
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onError
 import by.runets.vehiclescrapper.utils.coroutines.onNext
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -18,6 +19,8 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
                              @Autowired private val engineTypeService: EngineTypeTypeService,
                              @Autowired private val scrapperProperties: ScrapperProperties,
                              @Autowired private val engineTypeScrapper: EngineTypeScrapperProcessor) : AbstractScrapService<EngineType>() {
+
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {
@@ -34,7 +37,7 @@ class EngineTypeScrapService(@Autowired private val makeLookupService: MakeLooku
                         engineTypeDataSet.addAll(data)
                     }
                 }
-                .doOnError { error -> println(error) }
+                .doOnError { error -> logger.error(error.toString()) }
                 .onError {engineTypeService.saveAll(engineTypeDataSet)}
                 .onNext { engineTypeService.saveAll(engineTypeDataSet) }
                 .retry(scrapperProperties.retryLimit)

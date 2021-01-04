@@ -14,6 +14,7 @@ import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.LOT_S
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.MAKE_KEY
 import by.runets.vehiclescrapper.scrapper.copart.utils.HttpUtils.Companion.SIZE_KEY
 import kotlinx.coroutines.reactive.awaitLast
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
@@ -29,9 +30,11 @@ class CopartApiController(@Autowired private val webClient: WebClient,
                           @Autowired private val vehicleService: VehicleService,
                           @Autowired private val jsonParsers : Map<String, Any>,
                           @Autowired private val vehicleDtoToVehicleMapper: VehicleDtoToVehicleMapper) {
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @PostMapping("/lots/search/{make}/all")
     suspend fun searchAll(@PathVariable make : String) : Mono<ResponseEntity.BodyBuilder> {
+        logger.debug("searchAll")
         val totalElements = requestTotalElements(make)
         val vehicles = requestVehiclesByMake(make, totalElements)
         vehicleService.saveAll(vehicles)

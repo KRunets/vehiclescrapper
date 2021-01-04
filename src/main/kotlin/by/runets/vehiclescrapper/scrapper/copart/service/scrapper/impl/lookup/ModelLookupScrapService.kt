@@ -10,6 +10,7 @@ import by.runets.vehiclescrapper.scrapper.copart.service.scrapper.impl.AbstractS
 import by.runets.vehiclescrapper.utils.annotation.LogExecutionTime
 import by.runets.vehiclescrapper.utils.coroutines.onError
 import by.runets.vehiclescrapper.utils.coroutines.onNext
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -18,6 +19,7 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
                               @Autowired private val modelLookupScrapper: ModelLookupScrapperProcessor,
                               @Autowired private val modelLookupService: ModelLookupService,
                               @Autowired private val scrapperProperties : ScrapperProperties) : AbstractScrapService<ModelLookup>() {
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     @LogExecutionTime
     override suspend fun scrapAndSaveVoid() {
@@ -30,15 +32,15 @@ class ModelLookupScrapService(@Autowired private val makeLookupService: MakeLook
                     run {
                         searchCriteria[MakeLookup::javaClass.name] = makeLookup
                         val data = modelLookupScrapper.scrapAll(searchCriteria)
-                        println("Make : ${makeLookup.type}")
-                        println("Model {\n" +
+                        logger.debug("Make : ${makeLookup.type}")
+                        logger.debug("Model {\n" +
                                 "Total count: : ${data.size}\n" +
                                 "Data : $data \n" +
                                 "}")
                         modelLookupDataSet.addAll(data)
                     }
                 }
-                .doOnError{error -> println("The error $error occurred") }
+                .doOnError{error -> logger.error("The error $error occurred") }
                 .onError { modelLookupService.saveAll(modelLookupDataSet) }
                 .onNext { modelLookupService.saveAll(modelLookupDataSet) }
                 .retry(scrapperProperties.retryLimit)
