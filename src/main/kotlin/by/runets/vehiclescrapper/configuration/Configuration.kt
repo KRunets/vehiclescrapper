@@ -1,19 +1,26 @@
 package by.runets.vehiclescrapper.configuration
 
 import by.runets.vehiclescrapper.configuration.properties.DatabaseProperties
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonLotToVehicleDTOParser
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonToTotalElementsParser
+import by.runets.vehiclescrapper.controller.copart.data.parser.impl.JsonToVehicleDTOParser
 import by.runets.vehiclescrapper.utils.UUIDConverter
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.r2dbc.pool.ConnectionPool
 import io.r2dbc.pool.ConnectionPoolConfiguration
 import io.r2dbc.pool.PoolingConnectionFactoryProvider
 import io.r2dbc.spi.ConnectionFactories
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions.*
+import org.apache.commons.lang3.StringUtils
+import org.modelmapper.ModelMapper
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
+import org.springframework.core.convert.converter.Converter
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration
 import org.springframework.data.r2dbc.connectionfactory.R2dbcTransactionManager
 import org.springframework.data.r2dbc.convert.R2dbcCustomConversions
@@ -21,12 +28,18 @@ import org.springframework.data.r2dbc.core.DatabaseClient
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
-import org.springframework.transaction.annotation.EnableTransactionManagement
+import org.springframework.http.HttpHeaders
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.transaction.reactive.TransactionalOperator
+import org.springframework.web.client.RestTemplate
+import org.springframework.web.reactive.function.client.WebClient
 import java.time.Duration
+import java.util.*
+import kotlin.collections.HashMap
 
 
 @Configuration
+@EnableScheduling
 @EnableAspectJAutoProxy
 @EnableR2dbcRepositories("by.runets.vehiclescrapper")
 class Configuration(private val databaseProperties: DatabaseProperties) : AbstractR2dbcConfiguration() {
@@ -71,11 +84,11 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
 
     @Bean
     override fun r2dbcCustomConversions(): R2dbcCustomConversions {
-        return R2dbcCustomConversions(
-                listOf(
-                        UUIDConverter()
-                )
-        )
+        val converters: MutableList<Converter<*, *>?> = ArrayList()
+        converters.add(UUIDConverter())
+        /*   converters.add(JsonToMapConverter(objectMapper))
+           converters.add(MapToJsonConverter(objectMapper))
+        */   return R2dbcCustomConversions(storeConversions, converters)
     }
 
     @Bean
@@ -89,4 +102,66 @@ class Configuration(private val databaseProperties: DatabaseProperties) : Abstra
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER)
         return ChromeDriver(chromeOptions)
     }
+
+    @Bean
+    fun headers() : HttpHeaders {
+        val headers = HttpHeaders()
+        headers.add("User-Agent", " Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
+        headers.add("Accept", " application/json, text/javascript, */*; q=0.01")
+        headers.add("Accept-Language", " en-US,en;q=0.5")
+        headers.add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        headers.add("X-XSRF-TOKEN", " ada08cb7-0474-4876-868c-00b6cd16c454")
+        headers.add("X-Requested-With", " XMLHttpRequest")
+        headers.add("Origin", " https://www.copart.com")
+        headers.add("Connection", " keep-alive")
+        headers.add("TE", " Trailers")
+        headers.add("Cookie", StringUtils.EMPTY)
+
+        return headers
+    }
+
+    @Bean
+    fun webClient() : WebClient {
+        return WebClient.builder().build()
+    }
+
+
+    @Bean
+    fun objectMapper() : ObjectMapper {
+        return ObjectMapper()
+    }
+
+    @Bean
+    fun modelMapper() : ModelMapper {
+        return ModelMapper()
+    }
+
+
+    @Bean
+    fun jsonToVehicleDtoParser() : JsonToVehicleDTOParser {
+        return JsonToVehicleDTOParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonToTotalElementsParser() : JsonToTotalElementsParser {
+        return JsonToTotalElementsParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonLotToVehicleDTOParser() : JsonLotToVehicleDTOParser {
+        return JsonLotToVehicleDTOParser(objectMapper())
+    }
+
+    @Bean
+    fun jsonParsers() : Map<String, Any> {
+        val map = HashMap<String, Any>()
+
+        map[JsonToVehicleDTOParser::class.java.simpleName] = this.jsonToVehicleDtoParser()
+        map[JsonToTotalElementsParser::class.java.simpleName] = this.jsonToTotalElementsParser()
+        map[JsonLotToVehicleDTOParser::class.java.simpleName] = this.jsonLotToVehicleDTOParser()
+
+        return map
+    }
+
 }
+

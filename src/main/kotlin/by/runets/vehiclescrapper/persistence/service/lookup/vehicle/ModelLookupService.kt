@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.reactive.TransactionalOperator
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @Service
 class ModelLookupService(@Autowired private var modelLookupRepository: ModelLookupRepository,
@@ -16,5 +17,9 @@ class ModelLookupService(@Autowired private var modelLookupRepository: ModelLook
 
     override suspend fun findByMake(make: String) : Flux<ModelLookup> {
         return transactionalOperator.transactional(modelLookupRepository.findModelLookupByMake(make))
+    }
+
+    override suspend fun cleanDuplicateModels() : Mono<Void> {
+        return transactionalOperator.transactional(modelLookupRepository.cleanDuplicateModels())
     }
 }

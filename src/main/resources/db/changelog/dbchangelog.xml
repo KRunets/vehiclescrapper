@@ -5,8 +5,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include  file="src/main/resources/db/changelog/changes/vehiclescrapper-base-ddl-changeset.xml"/>
-    <include  file="src/main/resources/db/changelog/changes/vehiclescrapper-base-ddl-changeset-1.xml"/>
     <include  file="src/main/resources/db/changelog/changes/vehiclescrapper-base-ddl-constraints.xml"/>
+    <include  file="src/main/resources/db/changelog/changes/vehiclescrapper-base-ddl-changeset-1.xml"/>
+    <include  file="src/main/resources/db/changelog/changes/vehiclescrapper-base-ddl-changeset-2.xml"/>
 
 </databaseChangeLog>
 
